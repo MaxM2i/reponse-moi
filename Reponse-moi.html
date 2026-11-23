@@ -1,134 +1,966 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#17152d">
-<title>Réponse-moi !</title>
-<style>
-:root{--bg:#111126;--panel:#1d1c3b;--panel2:#292750;--ink:#f8f6ff;--muted:#b8b4d6;--pink:#ff6fae;--cyan:#65e4df;--yellow:#ffd66b;--purple:#a58bff;--line:#ffffff1b;--good:#70e2a7;--bad:#ff8295}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#30275b 0,transparent 40%),radial-gradient(ellipse at 100% 40%,#202b54 0,transparent 38%),var(--bg);color:var(--ink);font-family:Inter,ui-rounded,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
-button,input,select{font:inherit}button{cursor:pointer}.app{width:min(100%,760px);min-height:100vh;margin:auto;padding:16px 16px 34px}.top{display:flex;align-items:center;justify-content:space-between;padding:8px 2px 18px}.brand{font-weight:1000;font-size:22px;letter-spacing:-.7px}.brand span{color:var(--pink)}.brand i{font-style:normal}.top-actions{display:flex;gap:8px}.iconbtn{border:1px solid var(--line);background:#ffffff0c;color:white;border-radius:14px;width:42px;height:42px;font-size:19px}
-.screen{display:none;animation:up .28s ease}.screen.active{display:block}@keyframes up{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-.hero{position:relative;overflow:hidden;padding:26px 23px;border:1px solid #ffffff20;border-radius:27px;background:linear-gradient(135deg,#40316e,#282650 60%,#1e4260);box-shadow:0 18px 50px #05051166}
-.kicker{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);font-weight:900}.hero h1{font-size:clamp(32px,8vw,48px);line-height:1.02;margin:12px 0 10px;letter-spacing:-1.8px}.hero p{color:#e2def8;line-height:1.5;margin:0;max-width:520px}.hero .mascot{position:absolute;right:10px;bottom:-15px;font-size:104px;filter:drop-shadow(0 8px 12px #0005);transform:rotate(-9deg)}
-.section-title{display:flex;align-items:center;justify-content:space-between;margin:24px 2px 12px;font-weight:900;font-size:16px}.muted{color:var(--muted)}.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mode{min-height:155px;text-align:left;color:var(--ink);border:1px solid var(--line);border-radius:22px;padding:17px;background:linear-gradient(145deg,#292750,#1b1a36);box-shadow:0 10px 25px #08081766;transition:.2s}.mode:active,.tile:active{transform:scale(.98)}.mode .emoji{font-size:32px;display:block;margin-bottom:12px}.mode strong{display:block;font-size:16px}.mode small{display:block;color:var(--muted);line-height:1.4;margin-top:6px}.mode:nth-child(2){background:linear-gradient(145deg,#49305f,#282044)}.quick{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.pill{background:#ffffff10;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:#e8e4ff;font-size:12px;font-weight:800}
-.panel{margin-top:14px;padding:18px;border:1px solid var(--line);border-radius:22px;background:#1d1c3beF;box-shadow:0 12px 28px #07071455}.panel h2{font-size:19px;margin:0 0 8px}.panel p{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 14px}.field{margin:13px 0}.field label{display:block;font-size:12px;font-weight:900;color:#d8d4f4;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #ffffff24;background:#11112a;color:white;border-radius:13px;padding:13px;outline:none}.field input:focus,.field select:focus{border-color:var(--cyan)}.btn{border:0;border-radius:15px;padding:14px 17px;font-weight:950;color:#17152d;background:linear-gradient(100deg,var(--cyan),#9af1d5);box-shadow:0 8px 22px #65e4df22}.btn.pink{background:linear-gradient(100deg,var(--pink),#ffb0c8)}.btn.secondary{background:#ffffff12;color:white;border:1px solid var(--line);box-shadow:none}.btn:disabled{opacity:.4;cursor:not-allowed}.full{width:100%}.back{border:0;background:none;color:var(--muted);font-weight:850;padding:10px 2px;margin-bottom:8px}
-.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.theme{display:flex;align-items:center;gap:9px;padding:11px 12px;border-radius:15px;background:#11112a;border:1px solid var(--line);color:white;text-align:left;font-size:13px;font-weight:850}.theme input{accent-color:var(--pink);width:17px;height:17px}.theme .ico{font-size:20px}.theme.active{border-color:var(--pink);background:#4a294b}
-.stepper{display:flex;align-items:center;justify-content:space-between;background:#11112a;border:1px solid var(--line);border-radius:15px;padding:7px}.stepper button{width:40px;height:40px;border:0;border-radius:12px;background:#ffffff13;color:white;font-size:22px}.stepper b{font-size:21px}.choice-row{display:flex;gap:8px;flex-wrap:wrap}.choice{border:1px solid var(--line);background:#11112a;color:white;padding:10px 13px;border-radius:13px;font-size:12px;font-weight:850}.choice.selected{border-color:var(--cyan);background:#21454c}
-.player-row{display:grid;grid-template-columns:1fr 88px;gap:8px;margin:8px 0}.player-row input{min-width:0}.tiny{font-size:11px;color:var(--muted);line-height:1.45}.game-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:6px 0 14px}.tag{padding:8px 11px;border-radius:99px;background:#ffffff12;color:#e7e3ff;font-size:11px;font-weight:900}.scoreboard{display:flex;gap:8px;overflow:auto;padding:2px 0 10px}.score{min-width:100px;background:#ffffff0c;border:1px solid var(--line);border-radius:14px;padding:9px 11px}.score b{display:block;font-size:18px}.score small{color:var(--muted);font-size:10px}.prompt{padding:22px 18px;border-radius:23px;background:linear-gradient(145deg,#40316e,#24234b);border:1px solid #ffffff24;text-align:center}.prompt .emoji{font-size:35px}.prompt h2{font-size:clamp(22px,6vw,31px);line-height:1.15;margin:10px 0}.prompt p{color:#d0cbea;font-size:12px;margin:0}.rolebar{margin:12px 0;padding:13px;border-radius:16px;background:#65e4df14;border:1px solid #65e4df55;font-size:13px;line-height:1.45}.answerline{display:flex;gap:8px;margin-top:14px}.answerline input{flex:1;min-width:0;background:#11112a;border:1px solid var(--line);border-radius:14px;padding:13px;color:white}.answer-list{display:grid;gap:7px;margin:13px 0}.answer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:#11112a;border:1px solid var(--line);border-radius:13px;font-size:13px}.answer.ok{border-color:var(--good);background:#183d35}.answer.no{border-color:var(--bad);opacity:.7}.answer button{border:0;background:#ffffff12;color:white;border-radius:9px;padding:7px 9px}.answer .pts{color:var(--yellow);font-weight:950;white-space:nowrap}.progress{height:8px;border-radius:99px;background:#ffffff16;overflow:hidden;margin:13px 0}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--cyan));width:0}
-.notice{padding:12px;border-radius:13px;background:#ffffff0c;color:#d9d5f1;font-size:12px;line-height:1.5;margin:10px 0}.hidden{display:none!important}.result{text-align:center;padding:24px 15px}.result .trophy{font-size:65px}.result h1{font-size:34px;margin:8px}.rank{display:flex;justify-content:space-between;align-items:center;background:#ffffff0d;border:1px solid var(--line);padding:13px;border-radius:15px;margin:8px 0}.rank:first-child{background:#594a2b55;border-color:#ffd66b66}.rank b{font-size:20px;color:var(--yellow)}.switchline{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;font-weight:800}.switchline input{accent-color:var(--pink);width:19px;height:19px}
-@media(max-width:390px){.app{padding:12px}.hero{padding:22px 18px}.hero .mascot{font-size:78px;right:0}.mode{padding:14px;min-height:148px}.theme-grid{gap:7px}.theme{padding:9px;font-size:12px}}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#17152d">
+    <title>Réponse-moi !</title>
+    <style>
+        :root {
+            --bg: #111126;
+            --panel: #1d1c3b;
+            --panel2: #292750;
+            --ink: #f8f6ff;
+            --muted: #b8b4d6;
+            --pink: #ff6fae;
+            --cyan: #65e4df;
+            --yellow: #ffd66b;
+            --purple: #a58bff;
+            --line: #ffffff1b;
+            --good: #70e2a7;
+            --bad: #ff8295
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(ellipse at 15% 0%, #30275b 0, transparent 40%), radial-gradient(ellipse at 100% 40%, #202b54 0, transparent 38%), var(--bg);
+            color: var(--ink);
+            font-family: Inter, ui-rounded, system-ui, -apple-system, Segoe UI, sans-serif;
+            min-height: 100vh
+        }
+
+        button,
+        input,
+        select {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .app {
+            width: min(100%, 760px);
+            min-height: 100vh;
+            margin: auto;
+            padding: 16px 16px 34px
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 2px 18px
+        }
+
+        .brand {
+            font-weight: 1000;
+            font-size: 22px;
+            letter-spacing: -.7px
+        }
+
+        .brand span {
+            color: var(--pink)
+        }
+
+        .brand i {
+            font-style: normal
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px
+        }
+
+        .iconbtn {
+            border: 1px solid var(--line);
+            background: #ffffff0c;
+            color: white;
+            border-radius: 14px;
+            width: 42px;
+            height: 42px;
+            font-size: 19px
+        }
+
+        .screen {
+            display: none;
+            animation: up .28s ease
+        }
+
+        .screen.active {
+            display: block
+        }
+
+        @keyframes up {
+            from {
+                opacity: 0;
+                transform: translateY(9px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 26px 23px;
+            border: 1px solid #ffffff20;
+            border-radius: 27px;
+            background: linear-gradient(135deg, #40316e, #282650 60%, #1e4260);
+            box-shadow: 0 18px 50px #05051166
+        }
+
+        .kicker {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            font-weight: 900
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 8vw, 48px);
+            line-height: 1.02;
+            margin: 12px 0 10px;
+            letter-spacing: -1.8px
+        }
+
+        .hero p {
+            color: #e2def8;
+            line-height: 1.5;
+            margin: 0;
+            max-width: 520px
+        }
+
+        .hero .mascot {
+            position: absolute;
+            right: 10px;
+            bottom: -15px;
+            font-size: 104px;
+            filter: drop-shadow(0 8px 12px #0005);
+            transform: rotate(-9deg)
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 24px 2px 12px;
+            font-weight: 900;
+            font-size: 16px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .mode-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        .mode {
+            min-height: 155px;
+            text-align: left;
+            color: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 17px;
+            background: linear-gradient(145deg, #292750, #1b1a36);
+            box-shadow: 0 10px 25px #08081766;
+            transition: .2s
+        }
+
+        .mode:active,
+        .tile:active {
+            transform: scale(.98)
+        }
+
+        .mode .emoji {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 12px
+        }
+
+        .mode strong {
+            display: block;
+            font-size: 16px
+        }
+
+        .mode small {
+            display: block;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-top: 6px
+        }
+
+        .mode:nth-child(2) {
+            background: linear-gradient(145deg, #49305f, #282044)
+        }
+
+        .quick {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-top: 18px
+        }
+
+        .pill {
+            background: #ffffff10;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 12px;
+            color: #e8e4ff;
+            font-size: 12px;
+            font-weight: 800
+        }
+
+        .panel {
+            margin-top: 14px;
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: #1d1c3beF;
+            box-shadow: 0 12px 28px #07071455
+        }
+
+        .panel h2 {
+            font-size: 19px;
+            margin: 0 0 8px
+        }
+
+        .panel p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0 0 14px
+        }
+
+        .field {
+            margin: 13px 0
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 900;
+            color: #d8d4f4;
+            margin-bottom: 7px
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            border: 1px solid #ffffff24;
+            background: #11112a;
+            color: white;
+            border-radius: 13px;
+            padding: 13px;
+            outline: none
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--cyan)
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 15px;
+            padding: 14px 17px;
+            font-weight: 950;
+            color: #17152d;
+            background: linear-gradient(100deg, var(--cyan), #9af1d5);
+            box-shadow: 0 8px 22px #65e4df22
+        }
+
+        .btn.pink {
+            background: linear-gradient(100deg, var(--pink), #ffb0c8)
+        }
+
+        .btn.secondary {
+            background: #ffffff12;
+            color: white;
+            border: 1px solid var(--line);
+            box-shadow: none
+        }
+
+        .btn:disabled {
+            opacity: .4;
+            cursor: not-allowed
+        }
+
+        .full {
+            width: 100%
+        }
+
+        .back {
+            border: 0;
+            background: none;
+            color: var(--muted);
+            font-weight: 850;
+            padding: 10px 2px;
+            margin-bottom: 8px
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px
+        }
+
+        .theme {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 12px;
+            border-radius: 15px;
+            background: #11112a;
+            border: 1px solid var(--line);
+            color: white;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 850
+        }
+
+        .theme input {
+            accent-color: var(--pink);
+            width: 17px;
+            height: 17px
+        }
+
+        .theme .ico {
+            font-size: 20px
+        }
+
+        .theme.active {
+            border-color: var(--pink);
+            background: #4a294b
+        }
+
+        .stepper {
+            display: flex;
+            max-width: 130px;
+            align-items: center;
+            justify-content: space-between;
+            background: #11112a;
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            padding: 7px
+        }
+
+        .stepper button {
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 12px;
+            background: #ffffff13;
+            color: white;
+            font-size: 22px
+        }
+
+        .stepper button:hover {
+            background-color: #0ec59d;
+        }
+
+        .stepper button:active {
+            background-color: #730ec5;
+        }
+
+        .stepper b {
+            font-size: 21px
+        }
+
+        .choice-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .choice {
+            border: 1px solid var(--line);
+            background: #11112a;
+            color: white;
+            padding: 10px 13px;
+            border-radius: 13px;
+            font-size: 12px;
+            font-weight: 850
+        }
+
+        .choice.selected {
+            border-color: var(--cyan);
+            background: #21454c
+        }
+
+        .player-row {
+            display: grid;
+            grid-template-columns: 1fr 88px;
+            gap: 8px;
+            margin: 8px 0
+        }
+
+        .player-row input {
+            min-width: 0
+        }
+
+        .tiny {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.45
+        }
+
+        .game-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            align-items: center;
+            margin: 6px 0 14px
+        }
+
+        .tag {
+            padding: 8px 11px;
+            border-radius: 99px;
+            background: #ffffff12;
+            color: #e7e3ff;
+            font-size: 11px;
+            font-weight: 900
+        }
+
+        .scoreboard {
+            display: flex;
+            gap: 8px;
+            overflow: auto;
+            padding: 2px 0 10px
+        }
+
+        .score {
+            min-width: 100px;
+            background: #ffffff0c;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 9px 11px
+        }
+
+        .score b {
+            display: block;
+            font-size: 18px
+        }
+
+        .score small {
+            color: var(--muted);
+            font-size: 10px
+        }
+
+        .prompt {
+            padding: 22px 18px;
+            border-radius: 23px;
+            background: linear-gradient(145deg, #40316e, #24234b);
+            border: 1px solid #ffffff24;
+            text-align: center
+        }
+
+        .prompt .emoji {
+            font-size: 35px
+        }
+
+        .prompt h2 {
+            font-size: clamp(22px, 6vw, 31px);
+            line-height: 1.15;
+            margin: 10px 0
+        }
+
+        .prompt p {
+            color: #d0cbea;
+            font-size: 12px;
+            margin: 0
+        }
+
+        .rolebar {
+            margin: 12px 0;
+            padding: 13px;
+            border-radius: 16px;
+            background: #65e4df14;
+            border: 1px solid #65e4df55;
+            font-size: 13px;
+            line-height: 1.45
+        }
+
+        .answerline {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px
+        }
+
+        .answerline input {
+            flex: 1;
+            min-width: 0;
+            background: #11112a;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 13px;
+            color: white
+        }
+
+        .answer-list {
+            display: grid;
+            gap: 7px;
+            margin: 13px 0
+        }
+
+        .answer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #11112a;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            font-size: 13px;
+            color: white
+        }
+
+        .answer.ok {
+            border-color: var(--good);
+            background: #183d35
+        }
+
+        .answer.no {
+            border-color: var(--bad);
+            opacity: .7
+        }
+
+        .answer button {
+            border: 0;
+            background: #ffffff12;
+            color: white;
+            border-radius: 9px;
+            padding: 7px 9px
+        }
+
+        .answer .pts {
+            color: var(--yellow);
+            font-weight: 950;
+            white-space: nowrap
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 99px;
+            background: #ffffff16;
+            overflow: hidden;
+            margin: 13px 0
+        }
+
+        .progress i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--pink), var(--cyan));
+            width: 0
+        }
+
+        .notice {
+            padding: 12px;
+            border-radius: 13px;
+            background: #ffffff0c;
+            color: #d9d5f1;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 10px 0
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .result {
+            text-align: center;
+            padding: 24px 15px
+        }
+
+        .result .trophy {
+            font-size: 65px
+        }
+
+        .result h1 {
+            font-size: 34px;
+            margin: 8px
+        }
+
+        .rank {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff0d;
+            border: 1px solid var(--line);
+            padding: 13px;
+            border-radius: 15px;
+            margin: 8px 0
+        }
+
+        .rank:first-child {
+            background: #594a2b55;
+            border-color: #ffd66b66
+        }
+
+        .rank b {
+            font-size: 20px;
+            color: var(--yellow)
+        }
+
+        .switchline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 13px;
+            font-weight: 800
+        }
+
+        .switchline input {
+            accent-color: var(--pink);
+            width: 19px;
+            height: 19px
+        }
+
+        @media(max-width:390px) {
+            .app {
+                padding: 12px
+            }
+
+            .hero {
+                padding: 22px 18px
+            }
+
+            .hero .mascot {
+                font-size: 78px;
+                right: 0
+            }
+
+            .mode {
+                padding: 14px;
+                min-height: 148px
+            }
+
+            .theme-grid {
+                gap: 7px
+            }
+
+            .theme {
+                padding: 9px;
+                font-size: 12px
+            }
+        }
+    </style>
 </head>
-<body><main class="app">
-<header class="top"><div class="brand">RÉPONSE<span>-MOI</span> <i>⚡</i></div><div class="top-actions"><button class="iconbtn" id="soundQuick" aria-label="Son">🔊</button><button class="iconbtn" id="settingsBtn" aria-label="Options">⚙️</button></div></header>
 
-<section class="screen active" id="home">
- <div class="hero"><div class="kicker">Le jeu où ta mémoire fait la différence</div><h1>Tu penses en<br>trouver combien ?</h1><p>Choisis un thème, relève le défi et marque des points avec tes connaissances. Seul ou jusqu'à 6 joueurs !</p><div class="mascot">🦊</div></div>
- <div class="section-title">Choisis ton mode <span class="muted">✦ 2 façons de jouer</span></div>
- <div class="mode-grid">
-  <button class="mode" id="goCount"><span class="emoji">🧠</span><strong>À toi d'en trouver X !</strong><small>Annonce ton objectif, puis tente de donner autant de réponses que possible.</small></button>
-  <button class="mode" id="goTargets"><span class="emoji">🎯</span><strong>Le défi des réponses</strong><small>Le jeu choisit les réponses secrètement. À toi de les retrouver !</small></button>
- </div>
- <div class="quick"><span class="pill">👥 2 à 6 joueurs</span><span class="pill">🏆 3 à 10 manches</span><span class="pill">⭐ 1 à 7 points</span></div>
- <div class="panel"><h2>Comment jouer ?</h2><p>À chaque manche, un joueur pose le défi et valide les réponses, pendant qu'un autre tente de marquer un maximum de points. Les rôles tournent pour que tout le monde joue !</p><button class="btn secondary full" id="howBtn">📖 Voir les règles détaillées</button></div>
-</section>
+<body>
+    <main class="app">
+        <header class="top">
+            <div class="brand">RÉPONSE<span>-MOI</span> <i>⚡</i></div>
+            <div class="top-actions"><button class="iconbtn" id="soundQuick" aria-label="Son">🔊</button><button
+                    class="iconbtn" id="settingsBtn" aria-label="Options">⚙️</button></div>
+        </header>
 
-<section class="screen" id="setup">
- <button class="back" data-home>← Accueil</button><div class="hero"><div class="kicker" id="setupKicker">Préparation du défi</div><h1 id="setupTitle">À toi d'en trouver X !</h1><p id="setupDesc">Choisis tes thèmes et prépare la partie.</p></div>
- <div class="panel"><h2>1. Tes domaines</h2><p>Active ou désactive les catégories que tu veux retrouver pendant la partie.</p><div class="theme-grid" id="themeGrid"></div><div class="choice-row" style="margin-top:12px"><button class="choice" id="allThemes">Tout cocher</button><button class="choice" id="noThemes">Tout décocher</button></div></div>
- <div class="panel"><h2>2. Les règles</h2>
-  <div class="field" id="countField"><label>Combien de réponses veux-tu tenter ?</label><div class="stepper"><button id="countMinus">−</button><b id="countVal">8</b><button id="countPlus">+</button></div></div>
-  <div class="field" id="targetField"><label>Nombre de réponses secrètes à retrouver</label><div class="stepper"><button id="targetMinus">−</button><b id="targetVal">8</b><button id="targetPlus">+</button></div></div>
-  <div class="field"><label>Nombre de manches</label><div class="stepper"><button id="roundMinus">−</button><b id="roundVal">5</b><button id="roundPlus">+</button></div></div>
-  <div class="field"><label>Thèmes des manches</label><div class="choice-row"><button class="choice selected" data-theme-mode="same">Même thème</button><button class="choice" data-theme-mode="random">Au hasard</button></div></div>
-  <div class="field"><label>Type de partie</label><div class="choice-row"><button class="choice selected" data-play="solo">Solo</button><button class="choice" data-play="multi">Multijoueur</button></div></div>
- </div>
- <div class="panel hidden" id="playersPanel"><h2>3. Les joueurs</h2><p>Entre 2 et 6 joueurs. Les rôles tourneront automatiquement.</p><div class="field"><label>Nombre de joueurs</label><div class="stepper"><button id="playersMinus">−</button><b id="playersVal">2</b><button id="playersPlus">+</button></div></div><div id="playerInputs"></div></div>
- <button class="btn pink full" id="startBtn" style="margin-top:14px">Lancer la partie ✨</button>
- <p class="tiny" style="text-align:center;margin-top:10px">Les réponses acceptées et leur difficulté sont définies dans la banque du jeu. Les points vont de 1 à 7.</p>
-</section>
+        <section class="screen active" id="home">
+            <div class="hero">
+                <div class="kicker">Le jeu où ta mémoire fait la différence</div>
+                <h1>Tu penses en<br>trouver combien ?</h1>
+                <p>Choisis un thème, relève le défi et marque des points avec tes connaissances. Seul ou jusqu'à 6
+                    joueurs !</p>
+                <div class="mascot">🦊</div>
+            </div>
+            <div class="section-title">Choisis ton mode <span class="muted">✦ 2 façons de jouer</span></div>
+            <div class="mode-grid">
+                <button class="mode" id="goCount"><span class="emoji">🧠</span><strong>À toi d'en trouver X
+                        !</strong><small>Annonce ton objectif, puis tente de donner autant de réponses que
+                        possible.</small></button>
+                <button class="mode" id="goTargets"><span class="emoji">🎯</span><strong>Le défi des
+                        réponses</strong><small>Le jeu choisit les réponses secrètement. À toi de les retrouver
+                        !</small></button>
+            </div>
+            <div class="quick"><span class="pill">👥 2 à 6 joueurs</span><span class="pill">🏆 3 à 10
+                    manches</span><span class="pill">⭐ 1 à 7 points</span></div>
+            <div class="panel">
+                <h2>Comment jouer ?</h2>
+                <p>À chaque manche, un joueur pose le défi et valide les réponses, pendant qu'un autre tente de marquer
+                    un maximum de points. Les rôles tournent pour que tout le monde joue !</p><button
+                    class="btn secondary full" id="howBtn">📖 Voir les règles détaillées</button>
+            </div>
+        </section>
 
-<section class="screen" id="game">
- <button class="back" id="quitGame">✕ Quitter la partie</button>
- <div class="game-head"><span class="tag" id="roundTag">Manche 1 / 5</span><span class="tag" id="modeTag">À toi d'en trouver X !</span></div>
- <div class="scoreboard" id="scoreboard"></div>
- <div class="progress"><i id="progressFill"></i></div>
- <div class="prompt"><div class="emoji" id="topicEmoji">🌍</div><h2 id="questionTitle">Cite des pays d'Europe</h2><p id="questionSub">Réponses possibles : plus de 20</p></div>
- <div class="rolebar" id="roleBar"></div>
- <div class="notice" id="targetNotice"></div>
- <div id="answerList" class="answer-list"></div>
- <div class="answerline"><input id="answerInput" placeholder="Écris une réponse…" autocomplete="off"><button class="btn" id="submitAnswer">Valider</button></div>
- <div class="notice" id="feedback" aria-live="polite">Entre une réponse pour commencer.</div>
- <div class="choice-row" style="margin-top:12px"><button class="btn secondary" id="endTurn">Terminer la manche</button><button class="btn pink hidden" id="nextRound">Manche suivante →</button></div>
-</section>
+        <section class="screen" id="setup">
+            <button class="back" data-home>← Accueil</button>
+            <div class="hero">
+                <div class="kicker" id="setupKicker">Préparation du défi</div>
+                <h1 id="setupTitle">À toi d'en trouver X !</h1>
+                <p id="setupDesc">Choisis tes thèmes et prépare la partie.</p>
+            </div>
+            <div class="panel">
+                <h2>1. Tes domaines</h2>
+                <p>Active ou désactive les catégories que tu veux retrouver pendant la partie.</p>
+                <div class="theme-grid" id="themeGrid"></div>
+                <div class="choice-row" style="margin-top:12px"><button class="choice" id="allThemes">Tout
+                        cocher</button><button class="choice" id="noThemes">Tout décocher</button></div>
+            </div>
+            <div class="panel">
+                <h2>2. Les règles</h2>
+                <div class="field" id="countField"><label>Combien de réponses veux-tu tenter ?</label>
+                    <div class="stepper"><button id="countMinus">−</button><b id="countVal">8</b><button
+                            id="countPlus">+</button></div>
+                </div>
+                <div class="field" id="targetField"><label>Nombre de réponses secrètes à retrouver</label>
+                    <div class="stepper"><button id="targetMinus">−</button><b id="targetVal">8</b><button
+                            id="targetPlus">+</button></div>
+                </div>
+                <div class="field"><label>Nombre de manches</label>
+                    <div class="stepper"><button id="roundMinus">−</button><b id="roundVal">5</b><button
+                            id="roundPlus">+</button></div>
+                </div>
+                <div class="field"><label>Thèmes des manches</label>
+                    <div class="choice-row"><button class="choice selected" data-theme-mode="same">Même
+                            thème</button><button class="choice" data-theme-mode="random">Au hasard</button></div>
+                </div>
+                <div class="field"><label>Type de partie</label>
+                    <div class="choice-row"><button class="choice selected" data-play="solo">Solo</button><button
+                            class="choice" data-play="multi">Multijoueur</button></div>
+                </div>
+            </div>
+            <div class="panel hidden" id="playersPanel">
+                <h2>3. Les joueurs</h2>
+                <p>Entre 2 et 6 joueurs. Les rôles tourneront automatiquement.</p>
+                <div class="field"><label>Nombre de joueurs</label>
+                    <div class="stepper"><button id="playersMinus">−</button><b id="playersVal">2</b><button
+                            id="playersPlus">+</button></div>
+                </div>
+                <div id="playerInputs"></div>
+            </div>
+            <button class="btn pink full" id="startBtn" style="margin-top:14px">Lancer la partie ✨</button>
+            <p class="tiny" style="text-align:center;margin-top:10px">Les réponses acceptées et leur difficulté sont
+                définies dans la banque du jeu. Les points vont de 1 à 7.</p>
+        </section>
 
-<section class="screen" id="result">
- <div class="hero result"><div class="trophy">🏆</div><div class="kicker">Partie terminée</div><h1 id="winnerTitle">Bravo !</h1><p id="winnerSub">Voici le classement final.</p></div>
- <div class="panel"><h2>Classement</h2><div id="finalRanks"></div></div>
- <button class="btn pink full" id="replayBtn" style="margin-top:14px">Rejouer 🔥</button><button class="btn secondary full" data-home style="margin-top:9px">Retour à l'accueil</button>
-</section>
+        <section class="screen" id="game">
+            <button class="back" id="quitGame">✕ Quitter la partie</button>
+            <div class="game-head"><span class="tag" id="roundTag">Manche 1 / 5</span><span class="tag" id="modeTag">À
+                    toi d'en trouver X !</span></div>
+            <div class="scoreboard" id="scoreboard"></div>
+            <div class="progress"><i id="progressFill"></i></div>
+            <div class="prompt">
+                <div class="emoji" id="topicEmoji">🌍</div>
+                <h2 id="questionTitle">Cite des pays d'Europe</h2>
+                <p id="questionSub">Réponses possibles : plus de 20</p>
+            </div>
+            <div class="rolebar" id="roleBar"></div>
+            <div class="notice" id="targetNotice"></div>
+            <div class="panel hidden" id="judgePanel">
+                <h2>🕵️ Liste secrète de l’arbitre</h2>
+                <p>Appuie sur une réponse lorsque le joueur la trouve.</p>
+                <div id="judgeChoices" class="answer-list"></div>
+            </div>
+            <div id="answerList" class="answer-list"></div>
+            <div class="answerline"><input id="answerInput" placeholder="Écris une réponse…" autocomplete="off"><button
+                    class="btn" id="submitAnswer">Valider</button></div>
+            <div class="notice" id="feedback" aria-live="polite">Entre une réponse pour commencer.</div>
+            <div class="choice-row" style="margin-top:12px"><button class="btn secondary" id="endTurn">Terminer la
+                    manche</button><button class="btn pink hidden" id="nextRound">Manche suivante →</button></div>
+        </section>
 
-<section class="screen" id="how">
- <button class="back" data-home>← Accueil</button><div class="hero"><div class="kicker">Les règles</div><h1>Simple à comprendre,<br>dur à maîtriser !</h1><p>Deux modes, des thèmes variés et des manches où les rôles tournent.</p></div>
- <div class="panel"><h2>🧠 À toi d'en trouver X !</h2><p>Le thème apparaît et le joueur annonce un nombre de réponses qu'il pense pouvoir donner. Il essaie ensuite de remplir son objectif. En solo, le jeu vérifie les réponses. À plusieurs, le joueur désigné comme arbitre valide les propositions.</p></div>
- <div class="panel"><h2>🎯 Le défi des réponses</h2><p>L'application tire secrètement une liste de 5 à 15 réponses dans le thème choisi. Le joueur doit les retrouver. Chaque réponse trouvée rapporte entre 1 et 7 points selon sa difficulté. Les réponses secrètes restantes sont révélées à la fin de la manche.</p></div>
- <div class="panel"><h2>👥 À plusieurs</h2><p>De 2 à 6 joueurs et de 3 à 10 manches. À chaque manche, l'écran indique qui lit le thème et valide les propositions, et qui répond. Les rôles tournent automatiquement. Vous pouvez garder le même thème ou en tirer un nouveau à chaque manche.</p></div>
- <div class="panel"><h2>⭐ Les points</h2><p>Une réponse très connue vaut généralement 1 ou 2 points. Une réponse plus spécifique peut valoir 4 ou 5 points. Les réponses rares ou difficiles peuvent atteindre 6 ou 7 points. Le score est affiché après chaque validation.</p></div>
-</section>
+        <section class="screen" id="result">
+            <div class="hero result">
+                <div class="trophy">🏆</div>
+                <div class="kicker">Partie terminée</div>
+                <h1 id="winnerTitle">Bravo !</h1>
+                <p id="winnerSub">Voici le classement final.</p>
+            </div>
+            <div class="panel">
+                <h2>Classement</h2>
+                <div id="finalRanks"></div>
+            </div>
+            <button class="btn pink full" id="replayBtn" style="margin-top:14px">Rejouer 🔥</button><button
+                class="btn secondary full" data-home style="margin-top:9px">Retour à l'accueil</button>
+        </section>
 
-<section class="screen" id="settings">
- <button class="back" data-home>← Accueil</button><div class="hero"><div class="kicker">Personnalisation</div><h1>À ton goût !</h1><p>Configure l'ambiance et les petits effets du jeu.</p></div>
- <div class="panel"><h2>🔊 Ambiance</h2><label class="switchline">Sons des boutons et paramètres <input type="checkbox" id="soundToggle" checked></label><label class="switchline">Sons de réussite <input type="checkbox" id="winSound" checked></label><label class="switchline">Animations et effets <input type="checkbox" id="animToggle" checked></label></div>
- <div class="panel"><h2>🎮 Préférences</h2><label class="switchline">Confirmer avant de quitter <input type="checkbox" id="confirmToggle" checked></label><p class="tiny">Les réglages sont conservés sur cet appareil.</p></div>
- <button class="btn full" data-home>Enregistrer</button>
-</section>
-</main>
-<script>
-const $=id=>document.getElementById(id);
-const topics=[
-{id:'sport',name:'Sport',emoji:'🏅',q:'Cite des sports',a:[['Football',1],['Basket-ball',1],['Tennis',1],['Natation',1],['Athlétisme',2],['Handball',2],['Rugby',2],['Cyclisme',2],['Volley-ball',2],['Boxe',2],['Judo',2],['Escrime',3],['Badminton',2],['Escalade',3],['Hockey sur glace',3],['Surf',3],['Golf',2],['Ski alpin',2],['Patinage artistique',3],['Water-polo',4],['Curling',5],['Biathlon',4],['Pentathlon moderne',6],['Skeleton',6],['Bobsleigh',5],['Taekwondo',3]]},
-{id:'cuisine',name:'Cuisine',emoji:'🍳',q:'Cite des techniques de cuisine',a:[['Griller',1],['Bouillir',1],['Frire',1],['Rôtir',1],['Cuire à la vapeur',2],['Poêler',2],['Braiser',3],['Mijoter',2],[' gratiner',2],['Blanchir',3],['Pocher',3],['Flamber',3],[' confire',3],['Saisir',2],['Mariner',2],['Émulsionner',4],['Monter au beurre',5],['Déglacer',4],['Chemiser',5],['Clarifier',5],['Singer',6],['Luter',7],['Tourner un légume',6],['Fumer à froid',5],['Réaliser un sabayon',6]]},
-{id:'travail',name:'Travail',emoji:'💼',q:'Cite des métiers',a:[['Boulanger',1],['Médecin',1],['Professeur',1],['Infirmier',1],['Pompier',1],['Policier',1],['Électricien',2],['Plombier',2],['Cuisinier',1],['Architecte',2],['Développeur web',2],['Graphiste',2],['Vétérinaire',2],['Ébéniste',3],['Géomètre',4],['Ergonome',4],['Œnologue',5],['Thanatopracteur',6],['Luthier',5],['Hydrobiologiste',6],['Zythologue',7],['Météorologue',3],['Cordonnier',3],['Orthophoniste',3],['Apiculteur',3]]},
-{id:'nature',name:'Nature',emoji:'🌿',q:'Cite des animaux sauvages',a:[['Renard',1],['Cerf',1],['Loup',1],['Ours brun',1],['Sanglier',1],['Hérisson',1],['Écureuil',1],['Loutre',2],['Blaireau',2],['Lynx',2],['Chamois',2],['Bouquetin',3],['Glouton',4],['Caracal',4],['Okapi',5],['Pangolin',5],['Saïga',6],['Aye-aye',7],['Fossa',6],['Takin',6],['Binturong',7],['Serval',4],['Mouflon',3],['Vison',3],['Genette',5]]},
-{id:'astro',name:'Astronomie',emoji:'🪐',q:'Cite des objets ou corps célestes',a:[['Soleil',1],['Lune',1],['Mars',1],['Jupiter',1],['Saturne',1],['Vénus',1],['Mercure',2],['Neptune',2],['Uranus',2],['Pluton',2],['Comète de Halley',3],['Sirius',3],['Bételgeuse',4],['Andromède',3],['Orion',2],['Cérès',4],['Titan',3],['Europe (lune)',4],['Encelade',5],['Proxima du Centaure',4],['Pulsar',5],['Quasar',5],['Nébuleuse du Crabe',5],['Éris',5],['Hauméa',6]]},
-{id:'histoire',name:'Histoire',emoji:'🏛️',q:'Cite des personnages historiques',a:[['Napoléon Bonaparte',1],['Jules César',1],['Jeanne d’Arc',1],['Cléopâtre',1],['Louis XIV',1],['Charlemagne',2],['Alexandre le Grand',2],['Vercingétorix',3],['Ramsès II',3],['Hannibal',3],['Marie Curie',1],['Léonard de Vinci',1],['Galilée',2],['Rosa Parks',2],['Olympe de Gouges',3],['Hypatie',5],['Sappho',5],['Ibn Battûta',4],['Saladin',3],['Harriet Tubman',3],['Tamerlan',5],['Zénobie',5],['Averroès',5],['Toussaint Louverture',4],['Boadicée',6]]},
-{id:'geo',name:'Géographie',emoji:'🌍',q:'Cite des pays',a:[['France',1],['Espagne',1],['Italie',1],['Allemagne',1],['Portugal',1],['Canada',1],['Brésil',1],['Japon',1],['Australie',1],['Maroc',1],['Islande',2],['Népal',2],['Laos',3],['Bhoutan',4],['Suriname',4],['Kirghizistan',4],['Eswatini',5],['Lesotho',4],['Timor oriental',5],['Vanuatu',5],['Kiribati',6],['Tuvalu',6],['Nauru',6],['Comores',4],['São Tomé-et-Príncipe',7]]},
-{id:'politique',name:'Politique',emoji:'🗳️',q:'Cite des institutions ou organisations politiques',a:[['Assemblée nationale',1],['Sénat',1],['Élysée',1],['Gouvernement',1],['Conseil constitutionnel',2],['Conseil d’État',3],['ONU',1],['Union européenne',1],['Parlement européen',2],['OTAN',2],['Cour européenne des droits de l’homme',3],['Commission européenne',2],['Conseil européen',3],['OCDE',3],['G7',2],['G20',2],['UNESCO',2],['OIT',4],['OMC',3],['CPI',3],['OSCE',4],['Union africaine',3],['Mercosur',4],['ASEAN',4],['Banque mondiale',2]]},
-{id:'foot',name:'Football',emoji:'⚽',q:'Cite des clubs de football',a:[['Paris Saint-Germain',1],['Olympique de Marseille',1],['Real Madrid',1],['FC Barcelone',1],['Manchester United',1],['Liverpool',1],['Bayern Munich',1],['Juventus',1],['AC Milan',1],['Arsenal',1],['Chelsea',1],['Inter Milan',2],['Atlético de Madrid',2],['Borussia Dortmund',2],['Ajax Amsterdam',2],['Benfica',2],['Napoli',2],['Celtic Glasgow',3],['Feyenoord',3],['Galatasaray',3],['Sporting CP',3],['River Plate',3],['Boca Juniors',3],['Flamengo',3],['Al-Ahly',4]]},
-{id:'meca',name:'Mécanique',emoji:'🔧',q:'Cite des pièces d’une voiture',a:[['Moteur',1],['Pneu',1],['Batterie',1],['Frein',1],['Volant',1],['Embrayage',2],['Alternateur',2],['Radiateur',2],['Amortisseur',2],['Bougie',2],['Cardan',3],['Turbo',2],['Injecteur',3],['Vilebrequin',4],['Arbre à cames',4],['Biellette',4],['Silentbloc',5],['Étrier de frein',3],['Débitmètre',5],['FAP',3],['Durite',3],['Pignon',3],['Rotule de direction',4],['Culasse',3],['Volant moteur',4]]},
-{id:'web',name:'Web',emoji:'💻',q:'Cite des langages ou technologies du web',a:[['HTML',1],['CSS',1],['JavaScript',1],['Python',1],['PHP',2],['SQL',2],['TypeScript',2],['React',2],['Node.js',2],['Java',1],['Ruby',3],['Go',3],['Rust',3],['Svelte',4],['Vue.js',2],['Angular',2],['GraphQL',4],['WebAssembly',5],['Django',3],['Laravel',3],['Tailwind CSS',3],['Next.js',3],['Astro',4],['jQuery',2],['Elixir',5]]},
-{id:'plantes',name:'Plantes & fleurs',emoji:'🌸',q:'Cite des fleurs',a:[['Rose',1],['Tulipe',1],['Marguerite',1],['Tournesol',1],['Pivoine',2],['Orchidée',1],['Lys',1],['Coquelicot',1],['Lavande',1],['Iris',2],['Dahlia',2],['Hortensia',2],['Anémone',3],['Renoncule',3],['Hellébore',4],['Delphinium',5],['Nigelle de Damas',5],['Edelweiss',3],['Freesia',4],['Amarante',4],['Clématite',3],['Scabieuse',5],['Euphorbe',4],['Arum',3],['Lisianthus',5]]},
-{id:'food',name:'Nourriture',emoji:'🍓',q:'Cite des fromages',a:[['Camembert',1],['Comté',1],['Brie',1],['Roquefort',1],['Emmental',1],['Chèvre frais',1],['Reblochon',2],['Morbier',2],['Cantal',2],['Munster',2],['Ossau-Iraty',3],['Tomme de Savoie',2],['Époisses',3],['Maroilles',2],['Salers',3],['Livarot',3],['Langres',4],['Fourme d’Ambert',3],['Picodon',4],['Pélardon',4],['Mont d’Or',2],['Bleu de Gex',4],['Abondance',3],['Banon',5],['Charolais',4]]},
-{id:'stars',name:'Stars',emoji:'🌟',q:'Cite des personnalités célèbres',a:[['Omar Sy',1],['Taylor Swift',1],['Kylian Mbappé',1],['Beyoncé',1],['Leonardo DiCaprio',1],['Aya Nakamura',1],['Zinédine Zidane',1],['Rihanna',1],['Dwayne Johnson',1],['Céline Dion',1],['Timothée Chalamet',2],['Zendaya',2],['Angèle',2],['Orelsan',2],['Squeezie',2],['Jenna Ortega',2],['Pedro Pascal',2],['Dua Lipa',2],['Keanu Reeves',1],['Lupita Nyong’o',3],['Dev Patel',3],['Anya Taylor-Joy',3],['Rosalía',3],['Bad Bunny',2],['Florence Pugh',3]]}
-];
-let mode='count',play='solo',themeMode='same',count=8,targetCount=8,rounds=5,playerCount=2,players=[],round=1,answerBank=[],found=[],activeTopic=null,answerer=0,judge=1,locked=false,used=[];
-const sound={buttons:true,win:true,anim:true,confirm:true};
-function beep(freq=540,dur=.055){if(!sound.buttons)return;try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type='sine';g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);o.stop(c.currentTime+dur)}catch(e){}}
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0)}
-function chooseMode(m){mode=m;show('setup');$('setupTitle').textContent=m==='count'?"À toi d'en trouver X !":"Le défi des réponses";$('setupKicker').textContent=m==='count'?'Défi personnel':'Défi mystère';$('setupDesc').textContent=m==='count'?'Choisis le nombre de réponses que tu penses pouvoir donner.':'L’application choisira des réponses secrètes à retrouver.';$('countField').classList.toggle('hidden',m!=='count');$('targetField').classList.toggle('hidden',m!=='targets');renderThemes()}
-function renderThemes(){$('themeGrid').innerHTML=topics.map(t=>`<label class="theme active"><input type="checkbox" value="${t.id}" checked><span class="ico">${t.emoji}</span>${t.name}</label>`).join('')}
-function selectedTopics(){return [...$('themeGrid').querySelectorAll('input:checked')].map(x=>topics.find(t=>t.id===x.value))}
-function step(id,delta,min,max,fn){$(id).textContent=Math.max(min,Math.min(max,Number($(id).textContent)+delta));fn?.()}
-function setupPlayers(){ $('playerInputs').innerHTML=Array.from({length:playerCount},(_,i)=>`<div class="player-row"><input class="playerName" maxlength="18" value="${i===0?'Joueur 1':`Joueur ${i+1}`}" aria-label="Nom joueur ${i+1}"><input disabled value="${['🦊','🐼','🐸','🐯','🐙','🐲'][i]}" style="text-align:center"></div>`).join('')}
-function updatePlay(){ $('playersPanel').classList.toggle('hidden',play!=='multi');if(play==='multi')setupPlayers()}
-function begin(){const ts=selectedTopics();if(!ts.length){alert('Choisis au moins un domaine.');return}if(play==='solo')players=[{name:'Toi',score:0}];else players=[...document.querySelectorAll('.playerName')].map((x,i)=>({name:x.value.trim()||`Joueur ${i+1}`,score:0}));round=1;used=[];answerer=0;judge=players.length>1?1:0;nextChallenge();show('game')}
-function nextChallenge(){const ts=selectedTopics();activeTopic=(themeMode==='same'&&round>1)?activeTopic:ts[Math.floor(Math.random()*ts.length)];answerBank=[...activeTopic.a].sort(()=>Math.random()-.5);if(mode==='targets')answerBank=answerBank.slice(0,targetCount);found=[];locked=false;renderGame()}
-function renderGame(){ $('roundTag').textContent=`Manche ${round} / ${rounds}`;$('modeTag').textContent=mode==='count'?"À toi d'en trouver X !":'Défi des réponses';$('topicEmoji').textContent=activeTopic.emoji;$('questionTitle').textContent=activeTopic.q;$('questionSub').textContent=`${activeTopic.a.length} réponses possibles dans ce thème`;$('scoreboard').innerHTML=players.map((p,i)=>`<div class="score"><small>${p.name}${i===answerer?' · répond':''}${players.length>1&&i===judge?' · arbitre':''}</small><b>${p.score} pts</b></div>`).join('');$('progressFill').style.width=`${(round-1)/rounds*100}%`;
- const isMulti=players.length>1;$('roleBar').innerHTML=isMulti?`🎤 <b>${players[judge].name}</b> pose le thème et valide les réponses.<br>⚡ <b>${players[answerer].name}</b> doit répondre.`:'🧠 À toi de jouer ! Le jeu vérifie les réponses et calcule les points.';
- $('targetNotice').textContent=mode==='count'?`Objectif annoncé : ${count} réponses. Réponses trouvées : ${found.length} / ${count}.`:`Retrouve les ${targetCount} réponses choisies secrètement par l'application.`;
- $('answerList').innerHTML=found.map(x=>`<div class="answer ok"><span>✓ ${x.name}</span><span class="pts">+${x.points} pts</span></div>`).join('');$('answerInput').value='';$('answerInput').disabled=false;$('submitAnswer').disabled=false;$('endTurn').classList.remove('hidden');$('nextRound').classList.add('hidden');$('feedback').textContent='Entre une réponse pour commencer.'; $('answerInput').focus()}
-function normalize(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
-function submit(){if(locked)return;const val=$('answerInput').value.trim();if(!val)return;const match=answerBank.find(x=>normalize(x[0])===normalize(val));if(found.some(x=>normalize(x.name)===normalize(val))){$('feedback').textContent='Cette réponse a déjà été donnée !';beep(190);return}if(mode==='targets'&&!match){$('feedback').textContent='Ce n’est pas l’une des réponses secrètes. Essaie encore !';beep(190);$('answerInput').select();return}
- let customPoints=null;if(mode==='count'&&!match){if(players.length>1){const ok=confirm(`« ${val} » : l'arbitre confirme-t-il cette réponse ?`);if(!ok){$('feedback').textContent='Réponse refusée par l’arbitre.';beep(190);return}const raw=prompt('Arbitre : attribue une difficulté de 1 à 7 points à cette réponse.','3');if(raw===null)return;customPoints=Math.max(1,Math.min(7,Number.parseInt(raw,10)||1))}else{$('feedback').textContent='Réponse non reconnue. Essaie une autre formulation.';beep(190);return}}
- const chosen=match||[val,customPoints||1];const pts=chosen[1];found.push({name:chosen[0],points:pts});players[answerer].score+=pts;$('feedback').textContent=`Bien joué ! +${pts} points${pts>=5?' — réponse difficile !':''}`;beep(760,.09);renderGame();if((mode==='count'&&found.length>=count)||(mode==='targets'&&found.length>=targetCount)){endRound()}}
-function endRound(){if(locked)return;locked=true;$('answerInput').disabled=true;$('submitAnswer').disabled=true;$('endTurn').classList.add('hidden');$('nextRound').classList.remove('hidden');$('feedback').textContent=mode==='targets'?`Manche terminée ! ${answerBank.length-found.length} réponse(s) secrète(s) non trouvée(s).`:`Objectif : ${found.length>=count?'atteint !':'manche terminée.'} ${found.length} réponse(s) validée(s).`;if(mode==='targets'&&sound.win)beep(900,.15);$('answerList').innerHTML=found.map(x=>`<div class="answer ok"><span>✓ ${x.name}</span><span class="pts">+${x.points} pts</span></div>`).join('')+(mode==='targets'?answerBank.filter(x=>!found.some(f=>normalize(f.name)===normalize(x[0]))).map(x=>`<div class="answer no"><span>○ ${x[0]}</span><span class="pts">${x[1]} pts</span></div>`).join(''):'')}
-function advance(){if(round>=rounds){finish();return}round++;if(players.length>1){answerer=(answerer+1)%players.length;judge=(answerer+1)%players.length}nextChallenge()}
-function finish(){const sorted=[...players].sort((a,b)=>b.score-a.score);$('winnerTitle').textContent=sorted.length===1?'Défi terminé !':sorted[0].name+' remporte la partie !';$('winnerSub').textContent=`${rounds} manches jouées · ${sorted[0].score} points`; $('finalRanks').innerHTML=sorted.map((p,i)=>`<div class="rank"><span>${['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'][i]} ${p.name}</span><b>${p.score} pts</b></div>`).join('');show('result')}
-$('goCount').onclick=()=>{beep();chooseMode('count')};$('goTargets').onclick=()=>{beep();chooseMode('targets')};$('howBtn').onclick=()=>show('how');$('settingsBtn').onclick=()=>show('settings');$('soundQuick').onclick=()=>{sound.buttons=!sound.buttons;$('soundQuick').textContent=sound.buttons?'🔊':'🔇';beep()};document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>show('home'));$('allThemes').onclick=()=>{$('themeGrid').querySelectorAll('input').forEach(x=>x.checked=true);document.querySelectorAll('.theme').forEach(x=>x.classList.add('active'))};$('noThemes').onclick=()=>{$('themeGrid').querySelectorAll('input').forEach(x=>x.checked=false)};
-$('themeGrid').onchange=e=>e.target.closest('.theme')?.classList.toggle('active',e.target.checked);
-$('countMinus').onclick=()=>step('countVal',-1,1,25);$('countPlus').onclick=()=>step('countVal',1,1,25);$('targetMinus').onclick=()=>step('targetVal',-1,5,15);$('targetPlus').onclick=()=>step('targetVal',1,5,15);$('roundMinus').onclick=()=>step('roundVal',-1,3,10);$('roundPlus').onclick=()=>step('roundVal',1,3,10);$('playersMinus').onclick=()=>{playerCount=Math.max(2,playerCount-1);$('playersVal').textContent=playerCount;setupPlayers()};$('playersPlus').onclick=()=>{playerCount=Math.min(6,playerCount+1);$('playersVal').textContent=playerCount;setupPlayers()};
-document.querySelectorAll('[data-theme-mode]').forEach(b=>b.onclick=()=>{themeMode=b.dataset.themeMode;document.querySelectorAll('[data-theme-mode]').forEach(x=>x.classList.toggle('selected',x===b))});document.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>{play=b.dataset.play;document.querySelectorAll('[data-play]').forEach(x=>x.classList.toggle('selected',x===b));updatePlay()});
-$('startBtn').onclick=()=>{count=Number($('countVal').textContent);targetCount=Number($('targetVal').textContent);rounds=Number($('roundVal').textContent);begin()};$('submitAnswer').onclick=submit;$('answerInput').addEventListener('keydown',e=>{if(e.key==='Enter')submit()});$('endTurn').onclick=endRound;$('nextRound').onclick=advance;$('quitGame').onclick=()=>{if(sound.confirm&&!confirm('Quitter la partie ? La progression sera perdue.'))return;show('home')};$('replayBtn').onclick=()=>{chooseMode(mode)};
-$('soundToggle').onchange=e=>{sound.buttons=e.target.checked;$('soundQuick').textContent=sound.buttons?'🔊':'🔇'};$('winSound').onchange=e=>sound.win=e.target.checked;$('animToggle').onchange=e=>sound.anim=e.target.checked;$('confirmToggle').onchange=e=>sound.confirm=e.target.checked;
-</script></body></html>
+        <section class="screen" id="how">
+            <button class="back" data-home>← Accueil</button>
+            <div class="hero">
+                <div class="kicker">Les règles</div>
+                <h1>Simple à comprendre,<br>dur à maîtriser !</h1>
+                <p>Deux modes, des thèmes variés et des manches où les rôles tournent.</p>
+            </div>
+            <div class="panel">
+                <h2>🧠 À toi d'en trouver X !</h2>
+                <p>Le thème apparaît et le joueur annonce un nombre de réponses qu'il pense pouvoir donner. Il essaie
+                    ensuite de remplir son objectif. En solo, le jeu vérifie les réponses. À plusieurs, le joueur
+                    désigné comme arbitre valide les propositions.</p>
+            </div>
+            <div class="panel">
+                <h2>🎯 Le défi des réponses</h2>
+                <p>En multijoueur sur le même appareil, l'arbitre voit une liste secrète de 5 à 15 réponses et valide
+                    celles qui sont données. En solo, la recherche reste libre dans toute la catégorie. Chaque réponse
+                    trouvée rapporte entre 1 et 7 points selon sa difficulté. Les réponses secrètes restantes sont
+                    révélées à la fin de la manche.</p>
+            </div>
+            <div class="panel">
+                <h2>👥 À plusieurs</h2>
+                <p>De 2 à 6 joueurs et de 3 à 10 manches. À chaque manche, l'écran indique qui lit le thème et valide
+                    les propositions, et qui répond. Les rôles tournent automatiquement. Vous pouvez garder le même
+                    thème ou en tirer un nouveau à chaque manche.</p>
+            </div>
+            <div class="panel">
+                <h2>⭐ Les points</h2>
+                <p>Une réponse très connue vaut généralement 1 ou 2 points. Une réponse plus spécifique peut valoir 4 ou
+                    5 points. Les réponses rares ou difficiles peuvent atteindre 6 ou 7 points. Le score est affiché
+                    après chaque validation.</p>
+            </div>
+        </section>
+
+        <section class="screen" id="settings">
+            <button class="back" data-home>← Accueil</button>
+            <div class="hero">
+                <div class="kicker">Personnalisation</div>
+                <h1>À ton goût !</h1>
+                <p>Configure l'ambiance et les petits effets du jeu.</p>
+            </div>
+            <div class="panel">
+                <h2>🔊 Ambiance</h2><label class="switchline">Sons des boutons et paramètres <input type="checkbox"
+                        id="soundToggle" checked></label><label class="switchline">Sons de réussite <input
+                        type="checkbox" id="winSound" checked></label><label class="switchline">Animations et effets
+                    <input type="checkbox" id="animToggle" checked></label>
+            </div>
+            <div class="panel">
+                <h2>🎮 Préférences</h2><label class="switchline">Confirmer avant de quitter <input type="checkbox"
+                        id="confirmToggle" checked></label>
+                <p class="tiny">Les réglages sont conservés sur cet appareil.</p>
+            </div>
+            <button class="btn full" data-home>Enregistrer</button>
+        </section>
+    </main>
+    <script>
+        const $ = id => document.getElementById(id);
+        const topics = [
+            { id: 'sport', name: 'Sport', emoji: '🏅', q: 'Cite des sports', a: [['Football', 1], ['Basket-ball', 1], ['Tennis', 1], ['Natation', 1], ['Athlétisme', 2], ['Handball', 2], ['Rugby', 2], ['Cyclisme', 2], ['Volley-ball', 2], ['Boxe', 2], ['Judo', 2], ['Escrime', 3], ['Badminton', 2], ['Escalade', 3], ['Hockey sur glace', 3], ['Surf', 3], ['Golf', 2], ['Ski alpin', 2], ['Patinage artistique', 3], ['Water-polo', 4], ['Curling', 5], ['Biathlon', 4], ['Pentathlon moderne', 6], ['Skeleton', 6], ['Bobsleigh', 5], ['Taekwondo', 3]] },
+            { id: 'cuisine', name: 'Cuisine', emoji: '🍳', q: 'Cite des techniques de cuisine', a: [['Griller', 1], ['Bouillir', 1], ['Frire', 1], ['Rôtir', 1], ['Cuire à la vapeur', 2], ['Poêler', 2], ['Braiser', 3], ['Mijoter', 2], [' gratiner', 2], ['Blanchir', 3], ['Pocher', 3], ['Flamber', 3], [' confire', 3], ['Saisir', 2], ['Mariner', 2], ['Émulsionner', 4], ['Monter au beurre', 5], ['Déglacer', 4], ['Chemiser', 5], ['Clarifier', 5], ['Singer', 6], ['Luter', 7], ['Tourner un légume', 6], ['Fumer à froid', 5], ['Réaliser un sabayon', 6]] },
+            { id: 'travail', name: 'Travail', emoji: '💼', q: 'Cite des métiers', a: [['Boulanger', 1], ['Médecin', 1], ['Professeur', 1], ['Infirmier', 1], ['Pompier', 1], ['Policier', 1], ['Électricien', 2], ['Plombier', 2], ['Cuisinier', 1], ['Architecte', 2], ['Développeur web', 2], ['Graphiste', 2], ['Vétérinaire', 2], ['Ébéniste', 3], ['Géomètre', 4], ['Ergonome', 4], ['Œnologue', 5], ['Thanatopracteur', 6], ['Luthier', 5], ['Hydrobiologiste', 6], ['Zythologue', 7], ['Météorologue', 3], ['Cordonnier', 3], ['Orthophoniste', 3], ['Apiculteur', 3]] },
+            { id: 'nature', name: 'Nature', emoji: '🌿', q: 'Cite des animaux sauvages', a: [['Renard', 1], ['Cerf', 1], ['Loup', 1], ['Ours brun', 1], ['Sanglier', 1], ['Hérisson', 1], ['Écureuil', 1], ['Loutre', 2], ['Blaireau', 2], ['Lynx', 2], ['Chamois', 2], ['Bouquetin', 3], ['Glouton', 4], ['Caracal', 4], ['Okapi', 5], ['Pangolin', 5], ['Saïga', 6], ['Aye-aye', 7], ['Fossa', 6], ['Takin', 6], ['Binturong', 7], ['Serval', 4], ['Mouflon', 3], ['Vison', 3], ['Genette', 5]] },
+            { id: 'astro', name: 'Astronomie', emoji: '🪐', q: 'Cite des objets ou corps célestes', a: [['Soleil', 1], ['Lune', 1], ['Mars', 1], ['Jupiter', 1], ['Saturne', 1], ['Vénus', 1], ['Mercure', 2], ['Neptune', 2], ['Uranus', 2], ['Pluton', 2], ['Comète de Halley', 3], ['Sirius', 3], ['Bételgeuse', 4], ['Andromède', 3], ['Orion', 2], ['Cérès', 4], ['Titan', 3], ['Europe (lune)', 4], ['Encelade', 5], ['Proxima du Centaure', 4], ['Pulsar', 5], ['Quasar', 5], ['Nébuleuse du Crabe', 5], ['Éris', 5], ['Hauméa', 6]] },
+            { id: 'histoire', name: 'Histoire', emoji: '🏛️', q: 'Cite des personnages historiques', a: [['Napoléon Bonaparte', 1], ['Jules César', 1], ['Jeanne d’Arc', 1], ['Cléopâtre', 1], ['Louis XIV', 1], ['Charlemagne', 2], ['Alexandre le Grand', 2], ['Vercingétorix', 3], ['Ramsès II', 3], ['Hannibal', 3], ['Marie Curie', 1], ['Léonard de Vinci', 1], ['Galilée', 2], ['Rosa Parks', 2], ['Olympe de Gouges', 3], ['Hypatie', 5], ['Sappho', 5], ['Ibn Battûta', 4], ['Saladin', 3], ['Harriet Tubman', 3], ['Tamerlan', 5], ['Zénobie', 5], ['Averroès', 5], ['Toussaint Louverture', 4], ['Boadicée', 6]] },
+            { id: 'geo', name: 'Géographie', emoji: '🌍', q: 'Cite des pays', a: [['France', 1], ['Espagne', 1], ['Italie', 1], ['Allemagne', 1], ['Portugal', 1], ['Canada', 1], ['Brésil', 1], ['Japon', 1], ['Australie', 1], ['Maroc', 1], ['Islande', 2], ['Népal', 2], ['Laos', 3], ['Bhoutan', 4], ['Suriname', 4], ['Kirghizistan', 4], ['Eswatini', 5], ['Lesotho', 4], ['Timor oriental', 5], ['Vanuatu', 5], ['Kiribati', 6], ['Tuvalu', 6], ['Nauru', 6], ['Comores', 4], ['São Tomé-et-Príncipe', 7]] },
+            { id: 'politique', name: 'Politique', emoji: '🗳️', q: 'Cite des institutions ou organisations politiques', a: [['Assemblée nationale', 1], ['Sénat', 1], ['Élysée', 1], ['Gouvernement', 1], ['Conseil constitutionnel', 2], ['Conseil d’État', 3], ['ONU', 1], ['Union européenne', 1], ['Parlement européen', 2], ['OTAN', 2], ['Cour européenne des droits de l’homme', 3], ['Commission européenne', 2], ['Conseil européen', 3], ['OCDE', 3], ['G7', 2], ['G20', 2], ['UNESCO', 2], ['OIT', 4], ['OMC', 3], ['CPI', 3], ['OSCE', 4], ['Union africaine', 3], ['Mercosur', 4], ['ASEAN', 4], ['Banque mondiale', 2]] },
+            { id: 'foot', name: 'Football', emoji: '⚽', q: 'Cite des clubs de football', a: [['Paris Saint-Germain', 1], ['Olympique de Marseille', 1], ['Real Madrid', 1], ['FC Barcelone', 1], ['Manchester United', 1], ['Liverpool', 1], ['Bayern Munich', 1], ['Juventus', 1], ['AC Milan', 1], ['Arsenal', 1], ['Chelsea', 1], ['Inter Milan', 2], ['Atlético de Madrid', 2], ['Borussia Dortmund', 2], ['Ajax Amsterdam', 2], ['Benfica', 2], ['Napoli', 2], ['Celtic Glasgow', 3], ['Feyenoord', 3], ['Galatasaray', 3], ['Sporting CP', 3], ['River Plate', 3], ['Boca Juniors', 3], ['Flamengo', 3], ['Al-Ahly', 4]] },
+            { id: 'meca', name: 'Mécanique', emoji: '🔧', q: 'Cite des pièces d’une voiture', a: [['Moteur', 1], ['Pneu', 1], ['Batterie', 1], ['Frein', 1], ['Volant', 1], ['Embrayage', 2], ['Alternateur', 2], ['Radiateur', 2], ['Amortisseur', 2], ['Bougie', 2], ['Cardan', 3], ['Turbo', 2], ['Injecteur', 3], ['Vilebrequin', 4], ['Arbre à cames', 4], ['Biellette', 4], ['Silentbloc', 5], ['Étrier de frein', 3], ['Débitmètre', 5], ['FAP', 3], ['Durite', 3], ['Pignon', 3], ['Rotule de direction', 4], ['Culasse', 3], ['Volant moteur', 4]] },
+            { id: 'web', name: 'Web', emoji: '💻', q: 'Cite des langages ou technologies du web', a: [['HTML', 1], ['CSS', 1], ['JavaScript', 1], ['Python', 1], ['PHP', 2], ['SQL', 2], ['TypeScript', 2], ['React', 2], ['Node.js', 2], ['Java', 1], ['Ruby', 3], ['Go', 3], ['Rust', 3], ['Svelte', 4], ['Vue.js', 2], ['Angular', 2], ['GraphQL', 4], ['WebAssembly', 5], ['Django', 3], ['Laravel', 3], ['Tailwind CSS', 3], ['Next.js', 3], ['Astro', 4], ['jQuery', 2], ['Elixir', 5]] },
+            { id: 'plantes', name: 'Plantes & fleurs', emoji: '🌸', q: 'Cite des fleurs', a: [['Rose', 1], ['Tulipe', 1], ['Marguerite', 1], ['Tournesol', 1], ['Pivoine', 2], ['Orchidée', 1], ['Lys', 1], ['Coquelicot', 1], ['Lavande', 1], ['Iris', 2], ['Dahlia', 2], ['Hortensia', 2], ['Anémone', 3], ['Renoncule', 3], ['Hellébore', 4], ['Delphinium', 5], ['Nigelle de Damas', 5], ['Edelweiss', 3], ['Freesia', 4], ['Amarante', 4], ['Clématite', 3], ['Scabieuse', 5], ['Euphorbe', 4], ['Arum', 3], ['Lisianthus', 5]] },
+            { id: 'food', name: 'Nourriture', emoji: '🍓', q: 'Cite des fromages', a: [['Camembert', 1], ['Comté', 1], ['Brie', 1], ['Roquefort', 1], ['Emmental', 1], ['Chèvre frais', 1], ['Reblochon', 2], ['Morbier', 2], ['Cantal', 2], ['Munster', 2], ['Ossau-Iraty', 3], ['Tomme de Savoie', 2], ['Époisses', 3], ['Maroilles', 2], ['Salers', 3], ['Livarot', 3], ['Langres', 4], ['Fourme d’Ambert', 3], ['Picodon', 4], ['Pélardon', 4], ['Mont d’Or', 2], ['Bleu de Gex', 4], ['Abondance', 3], ['Banon', 5], ['Charolais', 4]] },
+            { id: 'stars', name: 'Stars', emoji: '🌟', q: 'Cite des personnalités célèbres', a: [['Omar Sy', 1], ['Taylor Swift', 1], ['Kylian Mbappé', 1], ['Beyoncé', 1], ['Leonardo DiCaprio', 1], ['Aya Nakamura', 1], ['Zinédine Zidane', 1], ['Rihanna', 1], ['Dwayne Johnson', 1], ['Céline Dion', 1], ['Timothée Chalamet', 2], ['Zendaya', 2], ['Angèle', 2], ['Orelsan', 2], ['Squeezie', 2], ['Jenna Ortega', 2], ['Pedro Pascal', 2], ['Dua Lipa', 2], ['Keanu Reeves', 1], ['Lupita Nyong’o', 3], ['Dev Patel', 3], ['Anya Taylor-Joy', 3], ['Rosalía', 3], ['Bad Bunny', 2], ['Florence Pugh', 3]] }
+        ];
+
+
+        // Nouveaux domaines : banque éditoriale extensible, chaque entrée suit le format [réponse, points, synonymes].
+        const scoreByRank = (i, total) => { const r = total ? i / total : 0; return r < .12 ? 1 : r < .28 ? 2 : r < .45 ? 3 : r < .62 ? 4 : r < .78 ? 5 : r < .91 ? 6 : 7 };
+        const newTopics = [
+            { id: 'musique', name: 'Musique', emoji: '🎵', q: 'Cite des instruments de musique', a: 'piano|guitare|batterie|violon|violoncelle|alto|contrebasse|flûte traversière|flûte à bec|clarinette|hautbois|basson|saxophone|trompette|trombone|tuba|cor d’harmonie|harpe|accordéon|ukulélé|mandoline|banjo|guitare basse|guitare électrique|guitare acoustique| clavecin|orgue|synthétiseur|xylophone|vibraphone|marimba|triangle|tambourin|djembé|congas|bongos|cajón|darbouka|oud|sitar|kora|balalaïka|cornemuse|harmonica|mélodica|didgeridoo|theremin|hang|steel drum|lyre'.split('|').map((x, i, a) => [x.trim(), scoreByRank(i, a.length), []]) },
+            { id: 'cinema', name: 'Cinéma & séries', emoji: '🎬', q: 'Cite des genres de films', a: 'comédie|drame|action|aventure|science-fiction|fantastique|horreur|thriller|policier|western|documentaire|animation|romance|comédie romantique|film musical|biopic|film historique|péplum|film catastrophe|film de guerre|film noir|road movie|film expérimental|satire|parodie|faux documentaire|court métrage|long métrage|film muet|film d’animation|stop motion|cyberpunk|dystopie|utopie|survival|film de super-héros|film de zombies|film de vampires|arts martiaux|coming of age|chronique sociale|film judiciaire|film sportif|film de casse|film d’espionnage|huis clos|comédie noire|slasher|giallo|space opera|docufiction'.split('|').map((x, i, a) => [x, scoreByRank(i, a.length), []]) },
+            { id: 'sciences', name: 'Sciences', emoji: '🔬', q: 'Cite des disciplines scientifiques', a: 'physique|chimie|biologie|mathématiques|astronomie|géologie|géographie|écologie|botanique|zoologie|génétique|microbiologie|virologie|immunologie|neurologie|médecine|pharmacologie|paléontologie|archéologie|anthropologie|sociologie|psychologie|économie|météorologie|océanographie|sismologie|vulcanologie|minéralogie|cristallographie|biochimie|biophysique|astrophysique|cosmologie|entomologie|ornithologie|mycologie|hydrologie|glaciologie|climatologie|toxicologie|épidémiologie|éthologie|linguistique|cryptographie|robotique|informatique|algorithmique|statistiques|nanotechnologie|science des matériaux'.split('|').map((x, i, a) => [x, scoreByRank(i, a.length), []]) },
+            { id: 'litterature', name: 'Littérature', emoji: '📚', q: 'Cite des genres littéraires', a: 'roman|nouvelle|conte|poésie|théâtre|essai|biographie|autobiographie|mémoires|fable|légende|épopée|fantasy|science-fiction|polar|roman policier|thriller|romance|roman historique|roman d’apprentissage|roman épistolaire|roman graphique|bande dessinée|manga|littérature jeunesse|littérature fantastique|horreur|anticipation|dystopie|utopie|satire|pamphlet|chronique|reportage|journal intime|haïku|sonnet|ode|élégie|tragédie|comédie|farce|opéra|livret|mythe|parabole|aphorisme|maxime|fresque|récit de voyage'.split('|').map((x, i, a) => [x, scoreByRank(i, a.length), []]) },
+            { id: 'transports', name: 'Transports', emoji: '🚆', q: 'Cite des moyens de transport', a: 'voiture|bus|autocar|métro|tramway|train|TGV|TER|RER|vélo|trottinette|moto|scooter|scooter électrique|avion|hélicoptère|ULM|planeur|montgolfière|dirigeable|bateau|voilier|ferry|paquebot|cargo|péniche|canoë|kayak|paddle|sous-marin|taxi|VTC|ambulance|camion| camionnette|tracteur|quad|kart|motoneige|télésiège|télécabine|funiculaire|monorail|train à crémaillère|navette spatiale|fusée|rickshaw|tuk-tuk|charrette|diligence'.split('|').map((x, i) => [x.trim(), i < 15 ? 1 : i < 32 ? 2 : i < 43 ? 3 : 4, []]) },
+            { id: 'jeux', name: 'Jeux & loisirs', emoji: '🎲', q: 'Cite des jeux de société', a: 'échecs|dames|backgammon|go|mah-jong|scrabble|monopoly|cluedo|risk|trivial pursuit|puissance 4|mastermind|bataille navale|uno|dobble|katamino|carcassonne|catane|7 wonders|azul|dixit|time’s up|loup-garou|code names|skyjo|6 qui prend|les aventuriers du rail| pandémie|citadelles|mysterium|unlock!|exit|jungle speed|twin it|blanc-manger coco|perudo|mille bornes|mot malin|concept|takenoko|patchwork|splendor|kingdomino|draftosaurus|tokyo highway|hive|quarto|qwirkle|rummikub|tarot|belote'.split('|').map((x, i) => [x.trim(), i < 15 ? 1 : i < 32 ? 2 : i < 43 ? 3 : 4, []]) },
+            { id: 'habitat', name: 'Maison & habitat', emoji: '🏠', q: 'Cite des pièces ou espaces d’une habitation', a: 'salon|séjour|cuisine|chambre|salle de bains|salle d’eau|toilettes|entrée|couloir|dressing|bureau|buanderie|cellier|cave|grenier|garage|atelier|véranda|terrasse|balcon|jardin|cour|patio|mezzanine|sous-sol|combles|arrière-cuisine|suite parentale|chambre d’amis|chambre d’enfant|salle à manger|bibliothèque|salle de jeux|local technique|chaufferie|remise|dépendance|abri de jardin|pool house|serre|pergola|porche|vestibule|palier|escalier|rooftop|loggia|alcôve|buanderie'.split('|').map((x, i, a) => [x, scoreByRank(i, a.length), []]) },
+            { id: 'economie', name: 'Économie & argent', emoji: '💶', q: 'Cite des notions économiques', a: 'inflation|déflation|récession|croissance|PIB|chômage|taux d’intérêt|dette publique|déficit budgétaire|excédent|impôt|TVA|cotisation|salaire|SMIC|pouvoir d’achat|consommation|épargne|investissement|capital|action|obligation|dividende|bourse|indice boursier|CAC 40|NASDAQ|monnaie|devise|taux de change|banque centrale|crédit|prêt immobilier|hypothèque|assurance|prime|franchise|budget|trésorerie|chiffre d’affaires|bénéfice|marge|rentabilité|amortissement|capital-risque|start-up|monopole|oligopole|concurrence|offre|demande|marché|externalité|productivité|mondialisation|commerce extérieur|balance commerciale|délocalisation|subvention|marché du travail|SMIC horaire|revenu disponible'.split('|').map((x, i) => [x.trim(), i < 18 ? 1 : i < 38 ? 2 : i < 52 ? 3 : 4, []]) }
+        ];
+        topics.push(...newTopics);
+
+        const broadExpansion = {
+            sport: 'course à pied|marche athlétique|marathon|semi-marathon|saut en hauteur|saut en longueur|triple saut|lancer du javelot|lancer du disque|lancer du marteau|lancer du poids|perche|décathlon|heptathlon|football américain|football gaélique|futsal|beach soccer|rugby à 7|rugby à 13|baseball|softball|cricket|lacrosse|floorball|hockey sur gazon|hockey en salle|patinage de vitesse|short-track|ski de fond|saut à ski|combiné nordique|ski freestyle|ski alpinisme|luge|skeleton|rafting| canyoning|spéléologie|parachutisme|plongée sous-marine|apnée|pêche sportive|bowling| pétanque|pelote basque|sumo|lutte gréco-romaine|lutte libre|jiu-jitsu|aïkido|kendo|kick-boxing|muay-thaï|parkour|breakdance|danse sportive|équitation|dressage|concours complet|polo|course hippique|rallye|formule 1|moto GP|NASCAR|drift|esport',
+            cuisine: 'faire revenir|cuire à l’étouffée|cuire au court-bouillon|cuire au bain-marie|cuire au four|cuire au gril|cuire au wok|cuire en croûte|cuire en cocotte|cuire à l’unilatéral|cuire à l’anglaise|cuire à la nage|cuire à la plancha|cuire au barbecue|cuire au fumoir|cuire au sautoir|cuire en papillote|étuver|glacer|napper|lisser|fouetter|battre|fouler|passer au chinois|filtrer|écumer|dépouiller|détendre|monter une mayonnaise|monter une vinaigrette|réaliser une béchamel|réaliser un roux|faire un beurre blanc|faire un beurre clarifié|faire une pâte brisée|faire une pâte feuilletée|faire une pâte sablée|faire une pâte à choux|faire lever|dégorger|saler|saumurer|paner|enrober|sabler|fraiser|foncer|chiqueter|dorer|lustrer|suer|dénerver|parer|émincer|hacher|ciseler|tailler en julienne|tailler en brunoise|tailler en mirepoix|tourner|zester|lever des filets|parer un poisson|désarêter|désosser|ficeler|brider|bard er|larder|piquer|clarifier un consommé|réaliser une meringue|réaliser une crème anglaise|réaliser une crème pâtissière|réaliser un praliné|réaliser une pâte fermentée',
+            travail: 'agent immobilier|agent d’accueil|agent de sécurité|aide-soignant|ambulancier|analyste financier|animateur|architecte paysagiste|assistant de direction|assistant RH|avocat|barbier|bibliothécaire|bijoutier|boucher|brasseur|carreleur|chauffagiste|chef de projet|chef de produit|chirurgien|coiffeur|conducteur de bus|conducteur de train|conseiller bancaire|conseiller clientèle|courtier|couvreur|déménageur|dentiste|développeur logiciel|diététicien|documentaliste|éducateur spécialisé|électricien bâtiment|électromécanicien|éleveur|expert-comptable|facteur|formateur|géologue|géomètre-topographe|gestionnaire de paie|infirmier anesthésiste|ingénieur civil|ingénieur agronome|ingénieur mécanique|inspecteur du travail|journaliste|maçon|magasinier|manutentionnaire|maréchal-ferrant|marin-pêcheur|masseur-kinésithérapeute|menuisier|moniteur d’auto-école|notaire|opticien|paysagiste|peintre en bâtiment|pharmacien|photographe|pilote de ligne|plâtrier|podo-orthésiste|préparateur en pharmacie|psychologue|réceptionniste|sage-femme|serveur|technicien de laboratoire|technicien de maintenance|traducteur|urbaniste|webmaster|data engineer|développeur mobile|responsable cybersécurité|ergothérapeute|orthoptiste|podologue|sage-femme|régisseur|rédacteur web|community manager|ingénieur du son|monteur vidéo',
+            nature: 'aigle royal|albatros|autruche|bécasse|buse|canard colvert|chouette hulotte|colibri|corbeau|cygne|faisan|flamant rose|geai|goéland|hirondelle|héron|hibou grand-duc|moineau|perroquet|pie|pic vert|pigeon|rouge-gorge|rossignol|toucan|vautour|zèbre|girafe|éléphant d’Afrique|rhinocéros|hippopotame|guépard|léopard|jaguar|tigre|lion|hyène|chacal|panda géant|panda roux|koala|kangourou|wombat|ornithorynque|wallaby|dromadaire|chameau|lama|alpaga|yack|bison|buff le|renne|élan|caribou|impala|gazelle|gnou|suricate|mangouste|lémurien|gorille|chimpanzé|orang-outan|gibbon|paresseux|tatou|fourmilier|tapir|lamantin|dugong|dauphin|cachalot|baleine bleue|requin blanc|requin marteau|raie manta|poisson-clown|hippocampe|murène|méduse|pieuvre|calmar|seiche|crabe|homard|langouste|étoile de mer|oursin|papillon|libellule|mante religieuse|scarabée|luciole|bourdon|abeille|frelon|coccinelle|phasme|tarentule|scorpion',
+            astro: 'Mercure|Vénus|Terre|Mars|Jupiter|Saturne|Uranus|Neptune|Pluton|Cérès|Éris|Makémaké|Hauméa|Charon|Phobos|Déimos|Io|Europe|Ganymède|Callisto|Titan|Encelade|Triton|Miranda|Ariel|Umbriel|Oberon|Mimas|Rhéa|Japet|Soleil|Proxima du Centaure|Sirius|Véga|Rigel|Bételgeuse|Antarès|Altair|Deneb|Pollux|Castor|Arcturus|Capella|Aldébaran|Canopus|Achernar|Fomalhaut|Étoile polaire|Cassiopée|Orion|Grande Ourse|Petite Ourse|Cygne|Lyre|Aigle|Scorpion|Sagittaire|Andromède|Pégase|Persée|Céphée|Dragon|Gémeaux|Taureau|Lion|Vierge|Balance|Bélier|Cancer|Capricorne|Verseau|Poissons|nébuleuse d’Orion|nébuleuse du Crabe|nébuleuse de la Carène|nébuleuse de la Lyre|amas des Pléiades|amas des Hyades|amas d’Hercule|galaxie du Triangle|Nuages de Magellan|galaxie du Sombrero|galaxie du Moulinet|pulsar|magnétar|quasar|blazar|naine blanche|naine brune|naine rouge|géante rouge|supergéante bleue|supernova|hypernova|étoile à neutrons|trou noir|trou noir supermassif|exoplanète|planète naine|comète|astéroïde|météoroïde|météorite|ceinture de Kuiper|nuage d’Oort|héliosphère|rayon cosmique',
+            histoire: 'Périclès|Socrate|Platon|Aristote|Pythagore|Hérodote|Thucydide|Alexandre le Grand|Philippe II de Macédoine|Hannibal|Scipion l’Africain|Auguste|Néron|Trajan|Hadrien|Marc Aurèle|Constantin|Attila|Clovis|Charlemagne|Hugues Capet|Guillaume le Conquérant|Aliénor d’Aquitaine|Richard Cœur de Lion|Philippe le Bel|Jeanne d’Arc|Louis XI|François Ier|Henri IV|Louis XIII|Louis XIV|Louis XVI|Robespierre|Danton|Marat|Napoléon Ier|Talleyrand|Victor Hugo|George Sand|Jules Ferry|Jaurès|De Gaulle|Jean Moulin|Simone Veil|Churchill|Roosevelt|Eisenhower|Gandhi|Nehru|Indira Gandhi|Mao Zedong|Deng Xiaoping|Sun Yat-sen|Nelson Mandela|Desmond Tutu|Martin Luther King|Rosa Parks|Malcolm X|Harriet Tubman|Abraham Lincoln|Frederick Douglass|Catherine II|Pierre le Grand|Lénine|Trotski|Staline|Gorbatchev|Atatürk|Mustafa Kemal|Saladin|Ibn Khaldoun|Averroès|Avicenne|Mansa Moussa|Sundiata Keïta|Shaka Zulu|Haïlé Sélassié|Toussaint Louverture|Simon Bolivar|José de San Martín|Emiliano Zapata|Pancho Villa|Eva Perón|Frida Kahlo|Marie Curie|Lise Meitner|Ada Lovelace|Alan Turing|Katherine Johnson|Nikola Tesla|Thomas Edison|Galilée|Copernic|Kepler|Newton|Darwin|Pasteur|Lavoisier|Faraday|Einstein|Hedy Lamarr',
+            geo: 'Afghanistan|Afrique du Sud|Albanie|Algérie|Allemagne|Andorre|Angola|Antigua-et-Barbuda|Arabie saoudite|Argentine|Arménie|Australie|Autriche|Azerbaïdjan|Bahamas|Bahreïn|Bangladesh|Barbade|Belgique|Belize|Bénin|Bhoutan|Biélorussie|Birmanie|Bolivie|Bosnie-Herzégovine|Botswana|Brésil|Brunei|Bulgarie|Burkina Faso|Burundi|Cambodge|Cameroun|Canada|Cap-Vert|Chili|Chine|Chypre|Colombie|Comores|Congo|Corée du Nord|Corée du Sud|Costa Rica|Côte d’Ivoire|Croatie|Cuba|Danemark|Djibouti|Dominique|Égypte|Émirats arabes unis|Équateur|Érythrée|Espagne|Estonie|Eswatini|Éthiopie|Fidji|Finlande|France|Gabon|Gambie|Géorgie|Ghana|Grèce|Grenade|Guatemala|Guinée|Guinée-Bissau|Guinée équatoriale|Guyana|Haïti|Honduras|Hongrie|Inde|Indonésie|Irak|Iran|Irlande|Islande|Israël|Italie|Jamaïque|Japon|Jordanie|Kazakhstan|Kenya|Kirghizistan|Kiribati|Kosovo|Koweït|Laos|Lesotho|Lettonie|Liban|Liberia|Libye|Liechtenstein|Lituanie|Luxembourg|Madagascar|Malaisie|Malawi|Maldives|Mali|Malte|Maroc|Maurice|Mauritanie|Mexique|Micronésie|Moldavie|Monaco|Mongolie|Monténégro|Mozambique|Namibie|Nauru|Népal|Nicaragua|Niger|Nigeria|Norvège|Nouvelle-Zélande|Oman|Ouganda|Ouzbékistan|Pakistan|Palaos|Panama|Papouasie-Nouvelle-Guinée|Paraguay|Pays-Bas|Pérou|Philippines|Pologne|Portugal|Qatar|République centrafricaine|République dominicaine|Roumanie|Royaume-Uni|Russie|Rwanda|Saint-Marin|Salomon|Salvador|Samoa|Sénégal|Serbie|Seychelles|Sierra Leone|Singapour|Slovaquie|Slovénie|Somalie|Soudan|Sri Lanka|Suède|Suisse|Suriname|Syrie|Tadjikistan|Tanzanie|Tchad|Tchéquie|Thaïlande|Timor oriental|Togo|Tonga|Tunisie|Turkménistan|Turquie|Tuvalu|Ukraine|Uruguay|Vanuatu|Vatican|Venezuela|Viêt Nam|Yémen|Zambie|Zimbabwe',
+            politique: 'Assemblée nationale|Sénat|Présidence de la République|Matignon|Conseil constitutionnel|Conseil d’État|Cour des comptes|Conseil économique social et environnemental|Haute Autorité pour la transparence de la vie publique|Défenseur des droits|Commission nationale de l’informatique et des libertés|Conseil supérieur de l’audiovisuel|Autorité de la concurrence|Autorité des marchés financiers|Parlement européen|Commission européenne|Conseil européen|Conseil de l’Union européenne|Cour de justice de l’Union européenne|Cour européenne des droits de l’homme|Banque centrale européenne|ONU|Assemblée générale des Nations unies|Conseil de sécurité|UNESCO|UNICEF|OMS|OIT|FAO|OMC|FMI|Banque mondiale|OCDE|OTAN|OSCE|Union africaine|Ligue arabe|ASEAN|Mercosur|G7|G20|Interpol|Cour pénale internationale|Cour internationale de Justice|Comité international olympique|Conseil de l’Europe|Commonwealth|CICR|PNUD|HCR|OPEP|Organisation internationale de la francophonie|Parlement|gouvernement|mairie|préfecture|conseil régional|conseil départemental|conseil municipal|commission parlementaire|autorité administrative indépendante|médiateur de la République',
+            foot: 'Real Madrid|FC Barcelone|Atlético de Madrid|Séville FC|Valence CF|Villarreal|Athletic Bilbao|Real Sociedad|Manchester City|Manchester United|Liverpool|Arsenal|Chelsea|Tottenham|Newcastle United|Aston Villa|Everton|West Ham|Bayern Munich|Borussia Dortmund|Bayer Leverkusen|RB Leipzig|Schalke 04|Eintracht Francfort|Juventus|Inter Milan|AC Milan|Napoli|AS Roma|Lazio|Atalanta|Fiorentina|Paris Saint-Germain|Olympique de Marseille|Olympique lyonnais|LOSC Lille|RC Lens|AS Monaco|Stade rennais|OGC Nice|FC Nantes|RC Strasbourg|Montpellier HSC|Toulouse FC|Girondins de Bordeaux|Ajax Amsterdam|PSV Eindhoven|Feyenoord|AZ Alkmaar|FC Porto|Benfica|Sporting CP|Celtic|Rangers|Galatasaray|Fenerbahçe|Besiktas|Olympiakos|Panathinaïkos|Shakhtar Donetsk|Dynamo Kiev|Club Bruges|Anderlecht|River Plate|Boca Juniors|Flamengo|Palmeiras|Santos|Corinthians|São Paulo FC|Grêmio|Inter Miami|LA Galaxy|Al-Hilal|Al-Nassr|Al-Ittihad|Wydad Casablanca|Al Ahly|TP Mazembe|Kaizer Chiefs|Mamelodi Sundowns',
+            meca: 'alternateur|démarreur|batterie|bougie d’allumage|injecteur|pompe à injection|pompe à carburant|filtre à huile|filtre à air|filtre à carburant|filtre habitacle|filtre à particules|vanne EGR|turbo|intercooler|radiateur|ventilateur|thermostat|pompe à eau|courroie accessoire|courroie de distribution|chaîne de distribution|galet tendeur|embrayage|volant moteur|boîte manuelle|boîte automatique|différentiel|cardan|arbre de transmission|joint de cardan|roulement|moyeu|triangle de suspension|rotule|biellette|amortisseur|ressort|coupelle|barre stabilisatrice|crémaillère|pompe de direction assistée|disque de frein|plaquette de frein|étrier|maître-cylindre|servofrein|flexible de frein|ABS|ESP|capteur PMH|sonde lambda|débitmètre|calculateur moteur|bobine d’allumage|piston|bielle|vilebrequin|arbre à cames|culasse|joint de culasse|carter d’huile|soupape|segment de piston|catalyseur|silencieux|ligne d’échappement|réservoir|durite|radiateur de chauffage|compresseur de climatisation|condenseur|évaporateur|pare-brise|essuie-glace|rétroviseur|phare|feu arrière|alternateur|fusible|relais|faisceau électrique',
+            web: 'HTML|CSS|JavaScript|TypeScript|Python|PHP|Java|C|C++|C#|Ruby|Go|Rust|Swift|Kotlin|Dart|Perl|Scala|Haskell|Lua|Bash|PowerShell|SQL|NoSQL|HTML5|CSS3|Sass|Less|React|Vue.js|Angular|Svelte|SolidJS|Next.js|Nuxt|Astro|Gatsby|jQuery|Node.js|Deno|Bun|Express.js|NestJS|Fastify|Django|Flask|FastAPI|Laravel|Symfony|Ruby on Rails|Spring Boot|ASP.NET|WordPress|Drupal|Joomla|Shopify|Webflow|Tailwind CSS|Bootstrap|Bulma|Material UI|Chakra UI|GraphQL|REST|WebSocket|HTTP|HTTPS|JSON|XML|YAML|SVG|Canvas|WebGL|WebAssembly|Docker|Kubernetes|Git|GitHub|GitLab|Bitbucket|Vite|Webpack|Rollup|Parcel|Babel|ESLint|Prettier|Jest|Vitest|Playwright|Cypress|PostgreSQL|MySQL|MariaDB|SQLite|MongoDB|Redis|Firebase|Supabase|AWS|Azure|Google Cloud|Cloudflare|Netlify|Vercel',
+            plantes: 'acacia|agapanthe|amaryllis|anémone|anthurium|aster|azalée|bégonia|bleuet|bougainvillée|camélia|capucine|chrysanthème|clématite|cœur-de-Marie|coquelicot|cosmos|cyclamen|dahlia|edelweiss|échinacée|edelweiss|freesia|fuchsia|géranium|glaïeul|glycine|gypsophile|hibiscus|hellébore|hortensia|iris|jacinthe|jasmin|jonquille|lavande|lilas|lisianthus|lotus|magnolia|marguerite|mimosa|muguet|narcisse|nigelle|œillet|orchidée|pâquerette|passiflore|pensée|pétunia|pivoine|primevère|renoncule|rhododendron|rose trémière|rudbeckia|sauge|scabieuse|souci|tulipe|verveine|violette|zinnia|achillée|armoise|bambou|basilic|bouleau|chêne|érable|eucalyptus|fougère|ginkgo|hêtre|laurier|menthe|olivier|pin|romarin|saule|thym|tilleul|vigne|yucca|agave|aloès|cactus|monstera|palmier|philodendron|pothos|sansevière|succulente|yucca',
+            food: 'abondance|abondance fermière|bleu d’Auvergne|bleu de Bresse|bleu de Gex|bleu des Causses|bleu du Vercors|brie de Meaux|brie de Melun|brocciu|brousse|cancoillotte|cantal|cervelle de canut|chaource|chèvre|chèvre frais|comté|coulommiers|crottin de Chavignol|délice de Bourgogne|emmental|époisses|féta|fourme d’Ambert|fourme de Montbrison|gaperon|gouda|gruyère|langres|livarot|mâconnais|mimolette|mont d’Or|montasio|morbier|munster|neufchâtel|ossau-iraty|parmesan|pélardon|persillé|picodon|pont-l’évêque|reblochon|recuite|rigotte de Condrieu|rocamadour|roquefort|saint-félicien|saint-marcellin|saint-nectaire|salers|selles-sur-cher|taleggio|tête de moine|tomme de Savoie|tomme des Pyrénées|vacherin|valençay|burrata|mozzarella|ricotta|mascarpone|gorgonzola|pecorino|provolone|scamorza|stracciatella|halloumi|paneer|feta|kasseri|manchego|idiazabal|mahón|stilton|cheshire|red leicester|wensleydale|cheddar|double gloucester|caerphilly|cashel blue|danish blue|havarti|danbo|jarlsberg|brunost|leipäjuusto',
+            stars: 'Jean Reno|Audrey Tautou|Omar Sy|Gérard Depardieu|Isabelle Huppert|Catherine Deneuve|Léa Seydoux|Adèle Exarchopoulos|Pierre Niney|François Civil|Pio Marmaï|Camélia Jordana|Louane|Vianney|Clara Luciani|Juliette Armanet|Christine and the Queens|Bigflo et Oli|MC Solaar|Booba|Ninho|SCH|Damso|PLK|Nekfeu|Lomepal|Zaz|Indochine|Michel Polnareff|Johnny Hallyday|Jacques Brel|Édith Piaf|Serge Gainsbourg|Charles Aznavour|Mylène Farmer|Florent Pagny|Patrick Bruel|Vanessa Paradis|Alain Souchon|Renaud|Francis Cabrel|Angèle|Stromae|Rosalía|Shakira|Bad Bunny|Drake|Kendrick Lamar|Eminem|Jay-Z|Adele|Dua Lipa|Sabrina Carpenter|Olivia Rodrigo|Lady Gaga|Madonna|Björk|Lana Del Rey|Harry Styles|Ed Sheeran|Bruno Mars|The Weeknd|Post Malone|SZA|Doja Cat|Travis Scott|J Balvin|Karol G|Rauw Alejandro|Pedro Almodóvar|Christopher Nolan|Greta Gerwig|Denis Villeneuve|Steven Spielberg|Martin Scorsese|James Cameron|Sofia Coppola|Tim Burton|Wes Anderson|Bong Joon-ho|Park Chan-wook|Hayao Miyazaki|Makoto Shinkai|Agnès Varda|Céline Sciamma|Justine Triet|Jacques Audiard|Leïla Bekhti|Tah ar Rahim|Virginie Efira|Marina Foïs|Kad Merad|Dany Boon|Franck Dubosc|Jamel Debbouze'
+        };
+        Object.entries(broadExpansion).forEach(([id, list]) => { const t = topics.find(x => x.id === id); if (!t) return; const values = list.split('|').map(x => x.trim()).filter(Boolean); values.forEach((n, i) => { if (!t.a.some(a => normalize(a[0]) === normalize(n))) t.a.push([n, scoreByRank(i, values.length), []]); }); });
+
+
+        // Banque enrichie : les points sont des niveaux de familiarité éditoriaux, non des statistiques de sondage.
+        const extraAnswers = {
+            sport: ['Trail|2', 'Triathlon|2', 'Aviron|3', 'Canoë-kayak|3', 'Voile|2', 'Tir à l’arc|2', 'Karaté|2', 'MMA|2', 'Skateboard|2', 'Snowboard|2', 'Haltérophilie|3', 'Squash|3', 'Padel|2', 'Pétanque|1', 'Billard|1', 'Fléchettes|2', 'Course d’orientation|4', 'Parapente|3', 'Plongeon|3', 'Gymnastique artistique|2'],
+            cuisine: ['Cuisson en papillote|2', 'Cuisson basse température|3', 'Cuire à blanc|3', 'Rissoler|3', 'Réduire une sauce|2', 'Pétrir|1', 'Monter des blancs en neige|1', 'Tamiser|2', 'Ciseler|3', 'Concasser|3', 'Dénerver|4', 'Désosser|4', 'Singer|6', 'Déglacer|4', 'Cuisson sous vide|3', 'Fermenter|3', 'Tempérer le chocolat|4', 'Réaliser une ganache|3', 'Réaliser un caramel|2', 'Pocher|3'],
+            travail: ['Menuisier|1', 'Charpentier|2', 'Couvreur|2', 'Carreleur|2', 'Mécanicien automobile|1', 'Carrossier|2', 'Maraîcher|2', 'Fleuriste|1', 'Comptable|1', 'Juriste|2', 'Acheteur|2', 'Logisticien|2', 'Technicien réseau|2', 'Administrateur système|3', 'Data analyst|3', 'UX designer|3', 'Soudeur|2', 'Grutier|2', 'Contrôleur aérien|3', 'Restaurateur d’œuvres d’art|5'],
+            nature: ['Chevreuil|1', 'Lièvre|1', 'Marmotte|1', 'Castor|2', 'Lézard|1', 'Vipère|2', 'Couleuvre|2', 'Salamandre|3', 'Triton|3', 'Hermine|3', 'Martre|3', 'Faucon pèlerin|3', 'Balbuzard pêcheur|4', 'Martin-pêcheur|2', 'Cigogne|1', 'Phoque|1', 'Orque|1', 'Narval|3', 'Béluga|2', 'Fossa|6'],
+            astro: ['Terre|1', 'Voie lactée|1', 'Astéroïde|2', 'Météorite|2', 'Satellite artificiel|1', 'Trou noir|1', 'Naine blanche|3', 'Naine rouge|3', 'Supernova|2', 'Exoplanète|2', 'Amas globulaire|5', 'Pléiades|3', 'Cassiopée|2', 'Véga|3', 'Rigel|3', 'Canopus|5', 'Io|3', 'Ganymède|3', 'Phobos|4', 'Makémaké|6'],
+            histoire: ['Napoléon III|2', 'Henri IV|1', 'François Ier|2', 'Marie-Antoinette|1', 'Élisabeth Ire|2', 'Winston Churchill|1', 'Nelson Mandela|1', 'Martin Luther King|1', 'Abraham Lincoln|1', 'Louise Michel|3', 'Clovis|2', 'Aliénor d’Aquitaine|3', 'Gengis Khan|2', 'Mansa Moussa|4', 'Shaka Zulu|4', 'Rosa Luxemburg|3', 'Alan Turing|2', 'Ada Lovelace|3', 'Sitting Bull|2', 'Ibn Sina|5'],
+            geo: ['Argentine|1', 'Chili|1', 'Pérou|1', 'Mexique|1', 'États-Unis|1', 'Chine|1', 'Inde|1', 'Corée du Sud|1', 'Thaïlande|1', 'Vietnam|1', 'Norvège|1', 'Suède|1', 'Finlande|1', 'Pologne|1', 'Croatie|2', 'Serbie|2', 'Albanie|2', 'Arménie|3', 'Mongolie|2', 'Ouzbékistan|3', 'Malawi|3', 'Namibie|2', 'Botswana|2', 'Gabon|2', 'Djibouti|3'],
+            politique: ['Mairie|1', 'Conseil municipal|1', 'Conseil régional|2', 'Conseil départemental|2', 'Préfecture|2', 'Cour des comptes|2', 'Défenseur des droits|3', 'Cour de justice de l’Union européenne|3', 'Banque centrale européenne|2', 'FMI|2', 'Interpol|2', 'Cour internationale de Justice|3', 'PNUD|3', 'FAO|3', 'CICR|2', 'Ligue arabe|3', 'Commonwealth|3', 'APEC|4', 'CEDEAO|4', 'Parlement|1'],
+            foot: ['LOSC Lille|1', 'AS Monaco|1', 'Stade Rennais|1', 'OGC Nice|1', 'RC Lens|1', 'FC Nantes|1', 'AS Saint-Étienne|1', 'Tottenham|1', 'Manchester City|1', 'Newcastle United|2', 'Aston Villa|2', 'Bayer Leverkusen|2', 'RB Leipzig|2', 'AS Roma|1', 'Lazio Rome|2', 'Fiorentina|2', 'FC Porto|1', 'PSV Eindhoven|2', 'Club Bruges|2', 'Al-Hilal|2'],
+            meca: ['Boîte de vitesses|1', 'Courroie de distribution|2', 'Filtre à huile|1', 'Filtre à air|1', 'Pompe à eau|2', 'Thermostat|2', 'Disque de frein|1', 'Plaquette de frein|1', 'Maître-cylindre|3', 'Moyeu de roue|3', 'Roulement|2', 'Crémaillère de direction|4', 'Triangle de suspension|3', 'Sonde lambda|3', 'Capteur PMH|5', 'Bobine d’allumage|3', 'Catalyseur|2', 'Différentiel|3', 'Joint de culasse|2', 'Piston|2'],
+            web: ['C|1', 'C++|2', 'C#|2', 'Swift|2', 'Kotlin|2', 'Dart|3', 'Perl|3', 'Scala|4', 'Haskell|5', 'Lua|3', 'Bash|2', 'JSON|1', 'XML|2', 'SVG|2', 'HTTP|1', 'HTTPS|1', 'REST|2', 'API|1', 'Docker|2', 'Git|1', 'GitHub|1', 'Vite|2', 'Nuxt|3', 'Express.js|2', 'FastAPI|3'],
+            plantes: ['Pâquerette|1', 'Pensée|1', 'Jonquille|1', 'Narcisse|1', 'Muguet|1', 'Géranium|1', 'Glycine|2', 'Jasmin|1', 'Magnolia|1', 'Camélia|2', 'Primevère|1', 'Cyclamen|2', 'Aster|2', 'Zinnia|2', 'Cosmos|2', 'Œillet|1', 'Chrysanthème|1', 'Bleuet|1', 'Bégonia|2', 'Passiflore|3'],
+            food: ['Saint-Nectaire|2', 'Beaufort|2', 'Raclette|1', 'Mozzarella|1', 'Parmesan|1', 'Gorgonzola|2', 'Gouda|1', 'Cheddar|1', 'Feta|1', 'Ricotta|2', 'Mascarpone|2', 'Burrata|2', 'Taleggio|4', 'Pecorino|3', 'Manchego|3', 'Appenzeller|4', 'Tête de Moine|4', 'Halloumi|2', 'Paneer|3', 'Kasseri|5'],
+            stars: ['Jean Dujardin|1', 'Marion Cotillard|1', 'Gad Elmaleh|1', 'Mylène Farmer|1', 'Stromae|1', 'David Guetta|1', 'Gims|1', 'Soprano|1', 'Cristiano Ronaldo|1', 'Lionel Messi|1', 'LeBron James|1', 'Serena Williams|1', 'Lewis Hamilton|1', 'Tom Holland|1', 'Scarlett Johansson|1', 'Margot Robbie|1', 'Ryan Gosling|1', 'Ariana Grande|1', 'Billie Eilish|1', 'The Weeknd|1']
+        };
+        topics.forEach(t => { (extraAnswers[t.id] || []).forEach(v => { const [n, pt] = v.split('|'); if (!t.a.some(a => normalize(a[0]) === normalize(n))) t.a.push([n, Number(pt), []]); }); });
+        const aliasOverrides = { sport: { 'Football': ['foot', 'soccer'], 'Basket-ball': ['basket', 'basketball'], 'Fléchettes': ['darts'] }, geo: { 'États-Unis': ['USA', 'Etats Unis', 'United States'], 'Corée du Sud': ['South Korea'], 'Eswatini': ['Swaziland'] }, web: { 'JavaScript': ['JS'], 'TypeScript': ['TS'], 'C++': ['CPP'], 'C#': ['C sharp'], 'Node.js': ['NodeJS'], 'Vue.js': ['Vue'] }, meca: { 'FAP': ['filtre à particules'], 'Boîte de vitesses': ['boite de vitesse', 'boite de vitesses'] }, stars: { 'Gims': ['Maître Gims', 'Maitre Gims'] } };
+        topics.forEach(t => t.a.forEach(a => { a[2] = [...(a[2] || []), ...(aliasOverrides[t.id]?.[a[0]] || [])]; }));
+
+        let mode = 'count', play = 'solo', themeMode = 'same', count = 8, targetCount = 8, rounds = 5, playerCount = 2, players = [], round = 1, answerBank = [], targetSelection = [], found = [], activeTopic = null, answerer = 0, judge = 1, locked = false, used = [];
+        const sound = { buttons: true, win: true, anim: true, confirm: true };
+        function beep(freq = 540, dur = .055) { if (!sound.buttons) return; try { const c = new (window.AudioContext || window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain(); o.frequency.value = freq; o.type = 'sine'; g.gain.value = .035; o.connect(g); g.connect(c.destination); o.start(); g.gain.exponentialRampToValueAtTime(.001, c.currentTime + dur); o.stop(c.currentTime + dur) } catch (e) { } }
+        function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); $(id).classList.add('active'); window.scrollTo(0, 0) }
+        const SAVE_KEY = 'reponseMoiSaveV3';
+        function saveGame() { try { const data = { mode, play, themeMode, count, targetCount, rounds, players, round, answerBank, targetSelection, found, activeTopic, answerer, judge, locked, selectedThemeIds: selectedTopics().map(t => t.id) }; localStorage.setItem(SAVE_KEY, JSON.stringify(data)); $('resumeBtn')?.classList.remove('hidden') } catch (e) { } }
+        function loadGame() { try { const d = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (!d || !d.players || !d.activeTopic) return false; renderThemes(); $('themeGrid').querySelectorAll('input').forEach(x => x.checked = (d.selectedThemeIds || []).includes(x.value)); document.querySelectorAll('.theme').forEach(x => x.classList.toggle('active', x.querySelector('input').checked)); mode = d.mode; play = d.play; themeMode = d.themeMode; count = d.count; targetCount = d.targetCount; rounds = d.rounds; players = d.players; round = d.round; answerBank = d.answerBank || []; targetSelection = d.targetSelection || []; found = d.found || []; activeTopic = d.activeTopic; answerer = d.answerer || 0; judge = d.judge || 0; locked = !!d.locked; renderGame(); show('game'); return true } catch (e) { return false } }
+        function clearSave() { localStorage.removeItem(SAVE_KEY); $('resumeBtn')?.classList.add('hidden') }
+        function esc(s) { return String(s).replace(/[&<>\"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;' }[c])) }
+        function chooseMode(m) { mode = m; show('setup'); $('setupTitle').textContent = m === 'count' ? "À toi d'en trouver X !" : "Le défi des réponses"; $('setupKicker').textContent = m === 'count' ? 'Défi personnel' : 'Défi mystère'; $('setupDesc').textContent = m === 'count' ? 'Choisis le nombre de réponses que tu penses pouvoir donner.' : 'L’application choisira des réponses secrètes à retrouver.'; $('countField').classList.toggle('hidden', m !== 'count'); $('targetField').classList.toggle('hidden', m !== 'targets'); renderThemes() }
+        function renderThemes() { $('themeGrid').innerHTML = topics.map(t => `<label class="theme active"><input type="checkbox" value="${t.id}" checked><span class="ico">${t.emoji}</span>${t.name}</label>`).join('') }
+        function selectedTopics() { return [...$('themeGrid').querySelectorAll('input:checked')].map(x => topics.find(t => t.id === x.value)) }
+        function step(id, delta, min, max, fn) { $(id).textContent = Math.max(min, Math.min(max, Number($(id).textContent) + delta)); fn?.() }
+        function setupPlayers() { $('playerInputs').innerHTML = Array.from({ length: playerCount }, (_, i) => `<div class="player-row"><input class="playerName" maxlength="18" value="${i === 0 ? 'Joueur 1' : `Joueur ${i + 1}`}" aria-label="Nom joueur ${i + 1}"><input disabled value="${['🦊', '🐼', '🐸', '🐯', '🐙', '🐲'][i]}" style="text-align:center"></div>`).join('') }
+        function updatePlay() { $('playersPanel').classList.toggle('hidden', play !== 'multi'); if (play === 'multi') setupPlayers() }
+        function begin() { clearSave(); const ts = selectedTopics(); if (!ts.length) { alert('Choisis au moins un domaine.'); return } if (play === 'solo') players = [{ name: 'Toi', score: 0 }]; else players = [...document.querySelectorAll('.playerName')].map((x, i) => ({ name: x.value.trim() || `Joueur ${i + 1}`, score: 0 })); round = 1; used = []; answerer = 0; judge = players.length > 1 ? 1 : 0; nextChallenge(); show('game') }
+        function nextChallenge() { const ts = selectedTopics(); activeTopic = (themeMode === 'same' && round > 1) ? activeTopic : ts[Math.floor(Math.random() * ts.length)]; answerBank = [...activeTopic.a].sort(() => Math.random() - .5); targetSelection = mode === 'targets' && players.length > 1 ? answerBank.slice(0, targetCount) : []; found = []; locked = false; renderGame(); saveGame() }
+        function renderGame() {
+            $('roundTag').textContent = `Manche ${round} / ${rounds}`; $('modeTag').textContent = mode === 'count' ? "À toi d'en trouver X !" : 'Défi des réponses'; $('topicEmoji').textContent = activeTopic.emoji; $('questionTitle').textContent = activeTopic.q; $('questionSub').textContent = `${activeTopic.a.length} réponses référencées dans cette catégorie`; $('scoreboard').innerHTML = players.map((p, i) => `<div class="score"><small>${esc(p.name)}${i === answerer ? ' · répond' : ''}${players.length > 1 && i === judge ? ' · arbitre' : ''}</small><b>${p.score} pts</b></div>`).join(''); $('progressFill').style.width = `${(round - 1) / rounds * 100}%`;
+            const isMulti = players.length > 1; $('roleBar').innerHTML = isMulti ? `🎤 <b>${esc(players[judge].name)}</b> arbitre et valide les réponses.<br>⚡ <b>${esc(players[answerer].name)}</b> doit répondre.` : '🧠 À toi de jouer ! Les réponses correctes de la banque enrichie sont acceptées.';
+            $('targetNotice').textContent = mode === 'count' ? `Objectif annoncé : ${count} réponses. Réponses trouvées : ${found.length} / ${count}.` : (isMulti ? `L’arbitre voit la sélection secrète. Le répondant peut proposer les réponses à voix haute.` : `Retrouve des réponses valides dans ce thème : la sélection n’est pas limitée à une liste secrète.`);
+            const judgeMode = mode === 'targets' && isMulti && !locked; $('judgePanel').classList.toggle('hidden', !judgeMode); $('judgeChoices').innerHTML = judgeMode ? targetSelection.map((x, i) => { const done = found.some(f => f.key === normalize(x[0])); return `<button class="answer ${done ? 'ok' : ''}" ${done ? 'disabled' : ''} data-target-index="${i}"><span>${done ? '✓' : '○'} ${esc(x[0])}</span><span class="pts">${x[1]} pts</span></button>` }).join('') : ''; $('judgeChoices').querySelectorAll('[data-target-index]').forEach(b => b.onclick = () => validateTarget(Number(b.dataset.targetIndex)));
+            $('answerList').innerHTML = found.map(x => `<div class="answer ok"><span>✓ ${esc(x.name)}</span><span class="pts">+${x.points} pts</span></div>`).join(''); $('answerInput').value = ''; const manualJudge = mode === 'targets' && isMulti; $('answerInput').disabled = manualJudge || locked; $('submitAnswer').disabled = manualJudge || locked; $('answerInput').placeholder = manualJudge ? 'L’arbitre valide dans la liste ci-dessus…' : 'Écris une réponse…'; $('endTurn').classList.toggle('hidden', locked); $('nextRound').classList.toggle('hidden', !locked); $('feedback').textContent = locked ? 'Manche terminée.' : 'Entre une réponse pour commencer.';
+        }
+        function normalize(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '') }
+        function editDistance(a, b) { const row = Array.from({ length: b.length + 1 }, (_, i) => i); for (let i = 1; i <= a.length; i++) { let prev = row[0]; row[0] = i; for (let j = 1; j <= b.length; j++) { const old = row[j]; row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = old } } return row[b.length] }
+        function findAnswer(val) { const n = normalize(val); const exact = answerBank.find(x => normalize(x[0]) === n || (x[2] || []).some(a => normalize(a) === n)); if (exact) return exact; if (n.length < 5) return null; const ranked = answerBank.map(x => ({ x, d: Math.min(editDistance(n, normalize(x[0])), ...(x[2] || []).map(a => editDistance(n, normalize(a)))) })).filter(v => v.d <= (n.length >= 12 ? 2 : 1)).sort((a, b) => a.d - b.d); if (!ranked.length || ranked.length > 1 && ranked[0].d === ranked[1].d) return null; return ranked[0].x }
+        function awardAnswer(item, name, correction = '') { const pts = item[1]; found.push({ name, key: normalize(item[0]), points: pts }); players[answerer].score += pts; beep(760, .09); renderGame(); $('feedback').textContent = correction ? `Correction automatique : « ${correction.from} » → « ${correction.to} » · +${pts} points` : `Bien joué ! ${name} · +${pts} points`; saveGame(); if ((mode === 'count' && found.length >= count) || (mode === 'targets' && players.length > 1 && found.length >= targetCount)) endRound() }
+        function validateTarget(index) { if (locked || players.length < 2 || mode !== 'targets') return; const item = targetSelection[index]; if (!item || found.some(f => f.key === normalize(item[0]))) return; awardAnswer(item, item[0]); }
+        function submit() { if (locked) return; const val = $('answerInput').value.trim(); if (!val) return; const match = findAnswer(val); if (found.some(x => normalize(x.name) === normalize(val) || normalize(x.name) === normalize(match?.[0] || ''))) { $('feedback').textContent = 'Cette réponse a déjà été donnée !'; beep(190); return } if (!match) { const who = players.length > 1 ? 'L’arbitre' : 'Toi'; const ok = confirm(`« ${val} » n’est pas encore dans la banque. ${who}, confirme que cette réponse est bien valable pour le thème ?`); if (!ok) { $('feedback').textContent = 'Réponse non validée. Essaie une autre proposition.'; beep(190); return } const raw = prompt(`${who} : attribue une difficulté de 1 à 7 points (1 = très connue, 7 = très spécialisée).`, '3'); if (raw === null) return; const pts = Math.max(1, Math.min(7, Number.parseInt(raw, 10) || 1)); awardAnswer([val, pts], val); return } if (mode === 'targets' && players.length > 1) { $('feedback').textContent = 'Arbitre : valide la réponse dans la liste secrète.'; return } const correction = normalize(val) !== normalize(match[0]) ? { from: val, to: match[0] } : ''; awardAnswer(match, match[0], correction); }
+
+        function endRound() { if (locked) return; locked = true; $('answerInput').disabled = true; $('submitAnswer').disabled = true; $('endTurn').classList.add('hidden'); $('nextRound').classList.remove('hidden'); $('feedback').textContent = mode === 'targets' && players.length > 1 ? `Manche terminée ! ${targetSelection.length - found.length} réponse(s) secrète(s) non trouvée(s).` : `Manche terminée : ${found.length} réponse(s) validée(s).`; if (mode === 'targets' && sound.win) beep(900, .15); $('answerList').innerHTML = found.map(x => `<div class="answer ok"><span>✓ ${x.name}</span><span class="pts">+${x.points} pts</span></div>`).join('') + (mode === 'targets' && players.length > 1 ? targetSelection.filter(x => !found.some(f => f.key === normalize(x[0]))).map(x => `<div class="answer no"><span>○ ${x[0]}</span><span class="pts">${x[1]} pts</span></div>`).join('') : ''); saveGame() }
+        function advance() { if (round >= rounds) { finish(); return } round++; if (players.length > 1) { answerer = (answerer + 1) % players.length; judge = (answerer + 1) % players.length } nextChallenge() }
+        function finish() { clearSave(); const sorted = [...players].sort((a, b) => b.score - a.score); $('winnerTitle').textContent = sorted.length === 1 ? 'Défi terminé !' : sorted[0].name + ' remporte la partie !'; $('winnerSub').textContent = `${rounds} manches jouées · ${sorted[0].score} points`; $('finalRanks').innerHTML = sorted.map((p, i) => `<div class="rank"><span>${['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣'][i]} ${p.name}</span><b>${p.score} pts</b></div>`).join(''); show('result') }
+        try { if (localStorage.getItem(SAVE_KEY)) $('resumeBtn')?.classList.remove('hidden') } catch (e) { }; const bind = (id, event, fn) => { const el = $(id); if (el) el[event] = fn }; bind('resumeBtn', 'onclick', () => loadGame()); bind('goCount', 'onclick', () => { beep(); chooseMode('count') }); bind('goTargets', 'onclick', () => { beep(); chooseMode('targets') }); bind('howBtn', 'onclick', () => show('how')); bind('settingsBtn', 'onclick', () => show('settings')); bind('soundQuick', 'onclick', () => { sound.buttons = !sound.buttons; $('soundQuick').textContent = sound.buttons ? '🔊' : '🔇'; beep() }); document.querySelectorAll('[data-home]').forEach(b => b.onclick = () => show('home')); bind('allThemes', 'onclick', () => { $('themeGrid').querySelectorAll('input').forEach(x => x.checked = true); document.querySelectorAll('.theme').forEach(x => x.classList.add('active')) }); bind('noThemes', 'onclick', () => { $('themeGrid').querySelectorAll('input').forEach(x => x.checked = false) });
+        $('themeGrid').onchange = e => e.target.closest('.theme')?.classList.toggle('active', e.target.checked);
+        $('countMinus').onclick = () => step('countVal', -1, 1, 25); $('countPlus').onclick = () => step('countVal', 1, 1, 25); $('targetMinus').onclick = () => step('targetVal', -1, 5, 15); $('targetPlus').onclick = () => step('targetVal', 1, 5, 15); $('roundMinus').onclick = () => step('roundVal', -1, 2, 10); $('roundPlus').onclick = () => step('roundVal', 1, 2, 10); $('playersMinus').onclick = () => { playerCount = Math.max(2, playerCount - 1); $('playersVal').textContent = playerCount; setupPlayers() }; $('playersPlus').onclick = () => { playerCount = Math.min(6, playerCount + 1); $('playersVal').textContent = playerCount; setupPlayers() };
+        document.querySelectorAll('[data-theme-mode]').forEach(b => b.onclick = () => { themeMode = b.dataset.themeMode; document.querySelectorAll('[data-theme-mode]').forEach(x => x.classList.toggle('selected', x === b)) }); document.querySelectorAll('[data-play]').forEach(b => b.onclick = () => { play = b.dataset.play; document.querySelectorAll('[data-play]').forEach(x => x.classList.toggle('selected', x === b)); updatePlay() });
+        $('startBtn').onclick = () => { count = Number($('countVal').textContent); targetCount = Number($('targetVal').textContent); rounds = Number($('roundVal').textContent); begin() }; $('submitAnswer').onclick = submit; $('answerInput').addEventListener('keydown', e => { if (e.key === 'Enter') submit() }); $('endTurn').onclick = endRound; $('nextRound').onclick = advance; $('quitGame').onclick = () => { if (sound.confirm && !confirm('Quitter la partie ? Ta progression sera sauvegardée sur cet appareil.')) return; saveGame(); show('home') }; $('replayBtn').onclick = () => { chooseMode(mode) };
+        $('soundToggle').onchange = e => { sound.buttons = e.target.checked; $('soundQuick').textContent = sound.buttons ? '🔊' : '🔇' }; $('winSound').onchange = e => sound.win = e.target.checked; $('animToggle').onchange = e => sound.anim = e.target.checked; $('confirmToggle').onchange = e => sound.confirm = e.target.checked;
+    </script>
+</body>
+
+</html>
