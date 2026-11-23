@@ -147,6 +147,21 @@
             font-size: 104px;
             filter: drop-shadow(0 8px 12px #0005);
             transform: rotate(-35deg);
+            animation: updown 1s ease
+        }
+
+        @keyframes updown {
+            from {
+                opacity: 0.2;
+                transform: translateY(99px);
+                transform: translateX(99px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+                transform: rotate(-35deg);
+            }
         }
 
         .section-title {
