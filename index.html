@@ -619,25 +619,159 @@
         }
 
 
-        .round-intro-hero { text-align:center; overflow:hidden; position:relative; background:linear-gradient(145deg,#48316c,#20264e 65%,#16485a); border:1px solid #ffffff20; }
-        .round-intro-emoji { font-size:76px; margin:12px 0; filter:drop-shadow(0 10px 18px #0007); animation:topicPop .65s cubic-bezier(.2,1.5,.4,1) both; }
-        .round-intro-hero h1 { font-size:clamp(32px,8vw,48px); margin:4px 0 10px; }
-        .round-intro-rule { margin:18px auto 0; padding:10px 14px; max-width:340px; border-radius:999px; background:#ffffff16; font-size:12px; font-weight:850; }
-        @keyframes topicPop { from { transform:scale(.35) rotate(-18deg); opacity:0 } to { transform:scale(1) rotate(0); opacity:1 } }
-        .celebration-screen { position:relative; overflow:hidden; }
-        .confetti-layer { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:20; }
-        .confetti-piece { position:absolute; top:-18px; width:9px; height:14px; border-radius:2px; animation:confettiFall var(--fall,3.4s) linear var(--delay,0s) forwards; transform:rotate(var(--rot,0deg)); }
-        @keyframes confettiFall { 0% { transform:translate3d(0,-5vh,0) rotate(0); opacity:1 } 100% { transform:translate3d(var(--drift,40px),110vh,0) rotate(760deg); opacity:.85 } }
-        .podium { display:flex; align-items:flex-end; justify-content:center; gap:8px; margin:20px 0 22px; min-height:165px; }
-        .podium-place { flex:1; max-width:125px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px; font-weight:900; min-width:0; }
-        .podium-place .podium-name { font-size:12px; overflow-wrap:anywhere; }
-        .podium-place .podium-score { font-size:13px; color:var(--yellow); }
-        .podium-block { width:100%; border-radius:13px 13px 5px 5px; display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:1000; box-shadow:inset 0 1px #ffffff55,0 8px 20px #0003; }
-        .podium-place.first .podium-block { height:94px; background:linear-gradient(160deg,#f8d976,#b77a27); color:#35220b; }
-        .podium-place.second .podium-block { height:68px; background:linear-gradient(160deg,#dce4ef,#78869e); color:#20283a; }
-        .podium-place.third .podium-block { height:48px; background:linear-gradient(160deg,#e8a477,#9c5738); color:#3a1c0d; }
-        .podium-place.first { order:2; } .podium-place.second { order:1; } .podium-place.third { order:3; }
-        .podium-panel { position:relative; z-index:1; }
+        .round-intro-hero {
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(145deg, #48316c, #20264e 65%, #16485a);
+            border: 1px solid #ffffff20;
+        }
+
+        .round-intro-emoji {
+            font-size: 76px;
+            margin: 12px 0;
+            filter: drop-shadow(0 10px 18px #0007);
+            animation: topicPop .65s cubic-bezier(.2, 1.5, .4, 1) both;
+        }
+
+        .round-intro-hero h1 {
+            font-size: clamp(32px, 8vw, 48px);
+            margin: 4px 0 10px;
+        }
+
+        .round-intro-rule {
+            margin: 18px auto 0;
+            padding: 10px 14px;
+            max-width: 340px;
+            border-radius: 999px;
+            background: #ffffff16;
+            font-size: 12px;
+            font-weight: 850;
+        }
+
+        @keyframes topicPop {
+            from {
+                transform: scale(.35) rotate(-18deg);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1) rotate(0);
+                opacity: 1
+            }
+        }
+
+        .celebration-screen {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confetti-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            top: -18px;
+            width: 9px;
+            height: 14px;
+            border-radius: 2px;
+            animation: confettiFall var(--fall, 3.4s) linear var(--delay, 0s) forwards;
+            transform: rotate(var(--rot, 0deg));
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translate3d(0, -5vh, 0) rotate(0);
+                opacity: 1
+            }
+
+            100% {
+                transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(760deg);
+                opacity: .85
+            }
+        }
+
+        .podium {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0 22px;
+            min-height: 165px;
+        }
+
+        .podium-place {
+            flex: 1;
+            max-width: 125px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-weight: 900;
+            min-width: 0;
+        }
+
+        .podium-place .podium-name {
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .podium-place .podium-score {
+            font-size: 13px;
+            color: var(--yellow);
+        }
+
+        .podium-block {
+            width: 100%;
+            border-radius: 13px 13px 5px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 1000;
+            box-shadow: inset 0 1px #ffffff55, 0 8px 20px #0003;
+        }
+
+        .podium-place.first .podium-block {
+            height: 94px;
+            background: linear-gradient(160deg, #f8d976, #b77a27);
+            color: #35220b;
+        }
+
+        .podium-place.second .podium-block {
+            height: 68px;
+            background: linear-gradient(160deg, #dce4ef, #78869e);
+            color: #20283a;
+        }
+
+        .podium-place.third .podium-block {
+            height: 48px;
+            background: linear-gradient(160deg, #e8a477, #9c5738);
+            color: #3a1c0d;
+        }
+
+        .podium-place.first {
+            order: 2;
+        }
+
+        .podium-place.second {
+            order: 1;
+        }
+
+        .podium-place.third {
+            order: 3;
+        }
+
+        .podium-panel {
+            position: relative;
+            z-index: 1;
+        }
 
         .switchline {
             display: flex;
@@ -653,6 +787,255 @@
             accent-color: var(--pink);
             width: 19px;
             height: 19px
+        }
+
+
+        /* Mode application : l'écran de jeu occupe tout le viewport, sans navigation parasite. */
+        body.playing {
+            overflow: hidden;
+            height: 100dvh;
+        }
+
+        body.playing .app {
+            width: 100%;
+            max-width: 760px;
+            height: 100dvh;
+            min-height: 0;
+            padding: 7px 10px max(7px, env(safe-area-inset-bottom));
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        body.playing .top {
+            display: none;
+        }
+
+        body.playing #game.active {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            height: 100%;
+            flex-direction: column;
+            gap: 5px;
+            overflow: hidden;
+        }
+
+        body.playing #quitGame {
+            align-self: flex-start;
+            padding: 5px 10px;
+            margin: 0;
+            font-size: 12px;
+            min-height: 30px;
+        }
+
+        body.playing .game-head {
+            margin: 0;
+            flex: 0 0 auto;
+        }
+
+        body.playing .scoreboard {
+            flex: 0 0 auto;
+            padding: 0 0 3px;
+            gap: 5px;
+        }
+
+        body.playing .score {
+            min-width: 75px;
+            padding: 5px 8px;
+            border-radius: 10px;
+        }
+
+        body.playing .score b {
+            font-size: 15px;
+        }
+
+        body.playing .score small {
+            font-size: 9px;
+        }
+
+        body.playing .progress {
+            flex: 0 0 5px;
+            height: 5px;
+            margin: 0;
+        }
+
+        body.playing .prompt {
+            flex: 0 0 auto;
+            padding: 10px 12px;
+            border-radius: 16px;
+        }
+
+        body.playing .prompt .emoji {
+            font-size: 26px;
+        }
+
+        body.playing .prompt h2 {
+            font-size: clamp(19px, 5vw, 25px);
+            margin: 4px 0;
+        }
+
+        body.playing .prompt p {
+            display: none;
+        }
+
+        body.playing .rolebar {
+            flex: 0 0 auto;
+            margin: 0;
+            padding: 7px 9px;
+            font-size: 11px;
+            line-height: 1.25;
+        }
+
+        body.playing .notice {
+            flex: 0 0 auto;
+            margin: 0;
+            padding: 7px 9px;
+            font-size: 11px;
+        }
+
+        body.playing #auctionPanel,
+        body.playing #targetIntro {
+            flex: 0 1 auto;
+            min-height: 0;
+            margin: 0;
+            padding: 9px;
+            overflow: auto;
+        }
+
+        body.playing #auctionPanel h2,
+        body.playing #targetIntro h2 {
+            font-size: 15px;
+            margin: 0 0 5px;
+        }
+
+        body.playing #auctionPanel>p:first-of-type {
+            display: none;
+        }
+
+        body.playing #auctionPanel .field {
+            margin: 5px 0;
+        }
+
+        body.playing #auctionPanel .answer-list {
+            max-height: 10dvh;
+            overflow: auto;
+        }
+
+        body.playing #judgePanel {
+            flex: 1 1 auto;
+            min-height: 0;
+            margin: 0;
+            padding: 8px;
+            overflow: auto;
+        }
+
+        body.playing #judgePanel h2 {
+            font-size: 14px;
+            margin: 0 0 5px;
+        }
+
+        body.playing #judgePanel .answer-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 5px;
+            margin: 5px 0 0;
+        }
+
+        body.playing #judgePanel .answer {
+            padding: 7px;
+            font-size: 11px;
+        }
+
+        body.playing #answerList {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow: auto;
+            margin: 0;
+            gap: 4px;
+        }
+
+        body.playing #answerList .answer {
+            padding: 6px 9px;
+            font-size: 11px;
+        }
+
+        body.playing .answerline {
+            flex: 0 0 auto;
+            margin: 0;
+        }
+
+        body.playing .answerline input {
+            padding: 10px;
+        }
+
+        body.playing #feedback {
+            flex: 0 0 auto;
+            margin: 0;
+            padding: 6px 9px;
+            font-size: 10px;
+        }
+
+        body.playing #game>.choice-row {
+            flex: 0 0 auto;
+            margin: 0 !important;
+        }
+
+        body.playing #game>.choice-row .btn {
+            padding: 10px 12px;
+            min-height: 39px;
+        }
+
+        body.playing #interRoundScores {
+            flex: 0 1 auto;
+            max-height: 23dvh;
+            overflow: auto;
+            margin: 0;
+            padding: 8px;
+        }
+
+        body.playing #interRoundScores h2 {
+            font-size: 14px;
+            margin: 0 0 5px;
+        }
+
+        body.playing #interRoundScores p {
+            display: none;
+        }
+
+        body.playing #interRoundScores .rank {
+            padding: 6px 8px;
+            margin: 3px 0;
+            font-size: 11px;
+        }
+
+        @media (max-height:650px) {
+            body.playing .prompt {
+                padding: 7px 10px;
+            }
+
+            body.playing .prompt .emoji {
+                display: none;
+            }
+
+            body.playing .rolebar {
+                padding: 5px 8px;
+            }
+
+            body.playing #answerList {
+                max-height: 20dvh;
+            }
+        }
+
+        @media (max-width:420px) {
+            body.playing .app {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            body.playing .tag {
+                padding: 6px 8px;
+                font-size: 10px;
+            }
         }
 
         @media(max-width:390px) {
@@ -705,7 +1088,8 @@
             <div class="section-title">Choisis ton mode <span class="muted">✦ 2 façons de jouer</span></div>
             <div class="mode-grid">
                 <button class="mode" id="goCount"><span class="emoji">🧠</span><strong>À toi d'en trouver X
-                        !</strong><small>En multijoueur, enchérissez : le meilleur contrat commence et doit le réussir.</small></button>
+                        !</strong><small>En multijoueur, enchérissez : le meilleur contrat commence et doit le
+                        réussir.</small></button>
                 <button class="mode" id="goTargets"><span class="emoji">🎯</span><strong>Le défi des
                         réponses</strong><small>Le jeu choisit les réponses secrètement. À toi de les retrouver
                         !</small></button>
@@ -722,10 +1106,14 @@
                     class="btn secondary full" id="statsBtn">Voir mes statistiques</button>
             </div>
             <div class="quick"><span class="pill">👥 2 à 6 joueurs</span><span class="pill">🏆 3 à 10
-                    manches</span><span class="pill">⭐ 1 à 7 points</span></div>
+                    manches</span><span class="pill">⭐ 1 à 7 points/réponses</span></div>
             <div class="panel">
                 <h2>Comment jouer ?</h2>
-                <p>En mode « À toi d’en trouver X » multijoueur, les joueurs enchérissent sur le nombre de réponses qu’ils pensent pouvoir donner. Le meilleur enchérisseur tente son contrat ; s’il échoue, le contrat passe au suivant. En mode défi, un arbitre valide les réponses secrètes d’un joueur. Le thème change à chaque manche, les scores sont rappelés entre les manches et un podium célèbre la fin de partie.</p><button
+                <p>En mode « À toi d’en trouver X » multijoueur, les joueurs enchérissent sur le nombre de réponses
+                    qu’ils pensent pouvoir donner. Le meilleur enchérisseur tente son contrat ; s’il échoue, le contrat
+                    passe au suivant. En mode défi, un arbitre valide les réponses secrètes d’un joueur. Choisissez « Au
+                    hasard » pour changer de thème à chaque manche ou « Même thème » pour le conserver. Les scores sont
+                    rappelés entre les manches et un podium célèbre la fin de partie.</p><button
                     class="btn secondary full" id="howBtn">📖 Voir les règles détaillées</button>
             </div>
         </section>
@@ -739,7 +1127,8 @@
             </div>
             <div class="panel">
                 <h2>1. Tes domaines</h2>
-                <p>Active ou désactive les catégories que tu veux retrouver pendant la partie.</p>
+                <p>Active les domaines que tu veux retrouver pendant la partie. En mode « Au hasard », le jeu évite de
+                    reprendre le thème de la manche précédente.</p>
                 <div class="theme-grid" id="themeGrid"></div>
                 <div class="choice-row" style="margin-top:12px"><button class="choice" id="allThemes">Tout
                         cocher</button><button class="choice" id="noThemes">Tout décocher</button></div>
@@ -758,8 +1147,11 @@
                     <div class="stepper"><button id="roundMinus">−</button><b id="roundVal">5</b><button
                             id="roundPlus">+</button></div>
                 </div>
-                <div class="field"><label>Renouvellement des thèmes</label>
-                    <p class="tiny">Un thème différent est tiré à chaque nouvelle manche. En défi multijoueur, tous les joueurs d’une même manche jouent sur le même thème.</p>
+                <div class="field"><label>Thème des prochaines manches</label>
+                    <p class="tiny">Choisis de conserver le thème de départ ou de découvrir un nouveau thème à chaque
+                        manche. En défi multijoueur, tous les joueurs d’une même manche partagent le même thème.</p>
+                    <div class="choice-row theme-mode-row"><button class="choice selected" data-theme-mode="random">🎲
+                            Au hasard</button><button class="choice" data-theme-mode="same">🔁 Même thème</button></div>
                 </div>
                 <div class="field"><label>Type de partie</label>
                     <div class="choice-row"><button class="choice selected" data-play="solo">Solo</button><button
@@ -785,7 +1177,11 @@
             <div class="game-head"><span class="tag" id="roundTag">Manche 1 / 5</span><span class="tag" id="modeTag">À
                     toi d'en trouver X !</span></div>
             <div class="scoreboard" id="scoreboard"></div>
-            <div class="panel hidden" id="interRoundScores"><h2>📊 Rappel des scores</h2><p>Voici le classement après cette manche.</p><div id="interRoundScoreList"></div></div>
+            <div class="panel hidden" id="interRoundScores">
+                <h2>📊 Rappel des scores</h2>
+                <p>Voici le classement après cette manche.</p>
+                <div id="interRoundScoreList"></div>
+            </div>
             <div class="progress"><i id="progressFill"></i></div>
             <div class="prompt">
                 <div class="emoji" id="topicEmoji">🌍</div>
@@ -799,7 +1195,10 @@
             </div>
             <div class="panel hidden" id="auctionPanel">
                 <h2>🔨 Enchères des joueurs</h2>
-                <p>À tour de rôle, chaque joueur annonce le nombre de réponses qu’il pense pouvoir trouver sur ce thème, ou passe. Vous pouvez surenchérir en annonçant un nombre supérieur. Quand tous les autres ont passé, le meilleur enchérisseur commence : s’il trouve le nombre annoncé, il remporte la manche. S’il échoue, le contrat passe au deuxième meilleur enchérisseur, puis au suivant.</p>
+                <p>À tour de rôle, chaque joueur annonce le nombre de réponses qu’il pense pouvoir trouver sur ce thème,
+                    ou passe. Vous pouvez surenchérir en annonçant un nombre supérieur. Quand tous les autres ont passé,
+                    le meilleur enchérisseur commence : s’il trouve le nombre annoncé, il remporte la manche. S’il
+                    échoue, le contrat passe au deuxième meilleur enchérisseur, puis au suivant.</p>
                 <p id="auctionText"></p>
                 <div id="auctionHistory" class="answer-list"></div>
                 <div class="field"><label>Ton enchère (nombre de réponses)</label>
@@ -832,7 +1231,10 @@
                 <p id="roundIntroTopic">Nouveau thème : Géographie</p>
                 <div class="round-intro-rule">⚡ Nouveau thème · nouveaux défis · les scores continuent</div>
             </div>
-            <div class="panel"><h2>🏆 Classement provisoire</h2><div id="roundIntroRanks"></div></div>
+            <div class="panel">
+                <h2>🏆 Classement provisoire</h2>
+                <div id="roundIntroRanks"></div>
+            </div>
             <button class="btn pink full" id="roundIntroStart">C’est parti ! 🚀</button>
         </section>
 
@@ -877,7 +1279,7 @@
                 <h2>👥 À plusieurs</h2>
                 <p>De 2 à 6 joueurs et de 3 à 10 manches. À chaque manche, l'écran indique qui lit le thème et valide
                     les propositions, et qui répond. Les rôles tournent automatiquement. Vous pouvez garder le même
-                    thème ou en tirer un nouveau à chaque manche.</p>
+                    conserver le même thème ou en tirer un nouveau à chaque manche.</p>
             </div>
             <div class="panel">
                 <h2>⭐ Les points</h2>
@@ -1019,15 +1421,23 @@
             jeux: 'Échecs|1;Dames|1;Dominos|1;Scrabble|1;Monopoly|1;Cluedo|1;Uno|1;Puissance 4|1;Mikado|1;Jenga|1;Risk|1;Trivial Pursuit|1;Backgammon|2;Mahjong|2;Go|2;Bridge|2;Belote|1;Tarot|1;Poker|1;Écarlate|4;Carcassonne|2;Catan|2;Dixit|2;Azul|2;7 Wonders|2;Pandemic|2;Code Names|2;Dobble|1;Time’s Up|1;Les Loups-garous de Thiercelieux|2;Minecraft|1;Tetris|1;Pac-Man|1;Super Mario|1;Zelda|1;Pokémon|1;Fortnite|1;League of Legends|1;Rocket League|1;Animal Crossing|1',
             habitat: 'Armoire|1;Baignoire|1;Balcon|1;Bureau|1;Canapé|1;Carrelage|1;Chaise|1;Chambre|1;Cheminée|1;Climatisation|1;Commode|1;Cuisine|1;Douche|1;Escalier|1;Fenêtre|1;Garage|1;Grange|1;Grenier|1;Jardin|1;Lampe|1;Lit|1;Mezzanine|2;Parquet|1;Placard|1;Poêle à bois|1;Porte-fenêtre|1;Réfrigérateur|1;Salle de bains|1;Salon|1;Terrasse|1;Véranda|1;Volet roulant|1;Buanderie|1;Cellier|1;Dressing|1;Entrée|1;Pergola|1;Radiateur|1;Robinet|1;VMC|2',
             economie: 'Action|1;Assurance|1;Banque|1;Bénéfice|1;Bourse|1;Capital|1;Chômage|1;Commerce|1;Consommation|1;Crédit|1;Croissance|1;Dette publique|1;Dividende|2;Épargne|1;Entreprise|1;Exportation|1;Importation|1;Inflation|1;Investissement|1;Marché|1;Monnaie|1;PIB|1;Prêt|1;Prix|1;Production|1;Salaire|1;Taux d’intérêt|1;TVA|1;Valeur ajoutée|2;Actionnaire|1;Amortissement|2;Balance commerciale|2;Déficit budgétaire|2;Déflation|2;Fonds propres|2;Liquidité|2;Marge brute|2;Obligation|2;Rentabilité|2;Risque systémique|3'
+            ,
+            sport: 'Aviron|2;Badminton|2;Baseball|2;Beach-volley|2; canoë-kayak|2;Cricket|2;Futsal|2; gymnastique rythmique|3;Karaté|2;Lutte gréco-romaine|3;Marche athlétique|3;Pétanque|1;Rugby à sept|2;Skateboard|1;Triathlon|2;Trail|2;Ultimate|3;Voile|1',
+            astro: 'Amas globulaire|4;Étoile à neutrons|4;Exoplanète|2;Éclipse solaire|1;Éclipse lunaire|1;Lentille gravitationnelle|5;Météorite|1;Naine blanche|3;Naine rouge|2;Supernova|2;Trous de ver|3;Vent solaire|2',
+            geo: 'Afrique du Sud|1;Arabie saoudite|1;Argentine|1;Chili|1;Colombie|1;Corée du Sud|1;Costa Rica|2;Croatie|1;Égypte|1;Émirats arabes unis|2;Finlande|1;Grèce|1;Inde|1;Indonésie|1;Irlande|1;Kenya|1;Madagascar|1;Mexique|1;Pérou|1;Philippines|1;Sénégal|1;Serbie|2;Singapour|1;Sri Lanka|2;Tanzanie|2;Ukraine|1;Vietnam|1'
         };
         Object.entries(knowledgeExpansion).forEach(([id, raw]) => { const t = topics.find(x => x.id === id); if (!t) return; raw.split(';').forEach(v => { const z = v.split('|'), name = z[0].trim(), pts = Number(z[1]) || 2; if (!t.a.some(a => normalize(a[0]) === normalize(name))) t.a.push([name, pts, []]) }) });
 
         const furtherTopics = [
-            { id:'mythologie', name:'Mythologie', emoji:'🏺', q:'Cite des personnages ou créatures mythologiques', a:'Zeus|1;Héra|2;Poséidon|1;Athéna|1;Apollon|1;Artémis|2;Arès|2;Aphrodite|1;Hermès|1;Hadès|1;Déméter|2;Héphaïstos|3;Dionysos|2;Persée|2;Héraclès|1;Achille|1;Ulysse|1;Médée|3;Orphée|2;Minotaure|1;Méduse|1;Pégase|1;Cerbère|2;Hydre de Lerne|2;Chimère|2;Sphinx|1;Cyclope|1;Centaures|2;Muses|2;Moires|3;Anubis|2;Rê|2;Isis|1;Osiris|2;Horus|2;Loki|1;Thor|1;Odin|1;Freya|2;Fenrir|3;Jörmungand|4;Yggdrasil|3;Amaterasu|3;Susanoo|4;Izanagi|4;Kitsune|2;Quetzalcoatl|3;Maui|3;Gilgamesh|2;Enkidu|4'.split(';').map(v=>{const [n,p]=v.split('|');return [n,+p,[]]}) },
-            { id:'villes', name:'Villes françaises', emoji:'🏙️', q:'Cite des villes françaises', a:'Paris|1;Marseille|1;Lyon|1;Toulouse|1;Nice|1;Nantes|1;Strasbourg|1;Montpellier|1;Bordeaux|1;Lille|1;Rennes|1;Reims|1;Le Havre|1;Saint-Étienne|1;Toulon|1;Grenoble|1;Dijon|1;Angers|1;Nîmes|1;Villeurbanne|2;Clermont-Ferrand|1;Aix-en-Provence|1;Brest|1;Limoges|1;Tours|1;Amiens|1;Perpignan|1;Metz|1;Besançon|1;Orléans|1;Rouen|1;Caen|1;Nancy|1;Mulhouse|1;Calais|2;Dunkerque|1;Arras|1;Lens|1;Valenciennes|2;Douai|2;Boulogne-sur-Mer|2;Colmar|1;Annecy|1;Chambéry|2;Bayonne|1;La Rochelle|1;Poitiers|1;Pau|1;Albi|2;Carcassonne|1;Saint-Malo|1;Vannes|1;Quimper|1;Épinal|2;Auxerre|2;Rodez|3;Montauban|2;Auch|3;Gap|2;Digne-les-Bains|3'.split(';').map(v=>{const [n,p]=v.split('|');return [n,+p,[]]}) },
-            { id:'arts', name:'Arts & culture', emoji:'🎨', q:'Cite des formes d’art ou des mouvements artistiques', a:'Peinture|1;Sculpture|1;Photographie|1;Architecture|1;Dessin|1;Gravure|2;Céramique|2;Mosaïque|2;Fresque|2;Street art|1;Art numérique|2;Performance|2;Installation|2;Collage|1;Origami|2;Calligraphie|2;Aquarelle|1;Pastel|1;Gouache|1;Art abstrait|1;Impressionnisme|1;Cubisme|2;Surréalisme|1;Baroque|2;Renaissance|1;Art nouveau|2;Art déco|2;Dadaïsme|3;Fauvisme|3;Expressionnisme|2;Minimalisme|2;Pop art|1;Land art|3;Réalisme|1;Romantisme|1;Symbolisme|2;Pointillisme|2;Futurisme|3;Constructivisme|4;Bauhaus|3;Rococo|3;Néo-classicisme|3;Arts premiers|2;Art brut|3;Design|1;Mode|1;Danse contemporaine|2;Opéra|1;Cirque|1;Théâtre|1'.split(';').map(v=>{const [n,p]=v.split('|');return [n,+p,[]]}) },
-            { id:'objets', name:'Objets du quotidien', emoji:'🧰', q:'Cite des objets que l’on trouve dans une maison', a:'Fourchette|1;Cuillère|1;Couteau|1;Assiette|1;Verre|1;Tasse|1;Bol|1;Casserole|1;Poêle|1;Passoire|1;Spatule|1;Éponge|1;Balai|1;Aspirateur|1;Serpillière|1;Seau|1;Poubelle|1;Lampe|1;Réveil|1;Télécommande|1;Chargeur|1;Multiprise|1;Ciseaux|1;Ruban adhésif|1;Agrafeuse|1;Marteau|1;Tournevis|1;Pince|1;Mètre ruban|1;Niveau à bulle|2;Perceuse|1;Vis|1;Clou|1;Ampoule|1;Parapluie|1;Cintre|1;Valise|1;Sac à dos|1;Brosse à dents|1;Peigne|1;Sèche-cheveux|1;Rasoir|1;Thermomètre|1;Bouillotte|1;Ventilateur|1;Radiateur|1;Oreiller|1;Couette|1;Rideau|1;Paillasson|1'.split(';').map(v=>{const [n,p]=v.split('|');return [n,+p,[]]}) },
-            { id:'securite', name:'Sécurité & secours', emoji:'🚒', q:'Cite des équipements ou acteurs de secours', a:'Pompier|1;Ambulancier|1;SAMU|1;SMUR|2;Croix-Rouge|1;Protection civile|2;Gendarmerie|1;Police nationale|1;Police municipale|1;Sapeur-pompier|1;Défibrillateur|2;Extincteur|1;Détecteur de fumée|1;Brancard|1;Trousse de secours|1;Garrot|2;Pansement compressif|2;Couverture de survie|1;Casque|1;Gilet haute visibilité|1;Lance à incendie|2;Échelle|1;Véhicule de secours|1;Bateau de sauvetage|2;Hélicoptère de secours|2;Numéro 112|1;Numéro 15|1;Numéro 17|1;Numéro 18|1;Numéro 114|3;Plan ORSEC|3;Poste de commandement|2;Balise de détresse|2;Bouée de sauvetage|1;Extincteur CO2|2;Masque respiratoire|2;Détecteur de monoxyde de carbone|2;Kit anti-déversement|4;Lampe torche|1;Radio de secours|2'.split(';').map(v=>{const [n,p]=v.split('|');return [n,+p,[]]}) }
+            { id: 'mythologie', name: 'Mythologie', emoji: '🏺', q: 'Cite des personnages ou créatures mythologiques', a: 'Zeus|1;Héra|2;Poséidon|1;Athéna|1;Apollon|1;Artémis|2;Arès|2;Aphrodite|1;Hermès|1;Hadès|1;Déméter|2;Héphaïstos|3;Dionysos|2;Persée|2;Héraclès|1;Achille|1;Ulysse|1;Médée|3;Orphée|2;Minotaure|1;Méduse|1;Pégase|1;Cerbère|2;Hydre de Lerne|2;Chimère|2;Sphinx|1;Cyclope|1;Centaures|2;Muses|2;Moires|3;Anubis|2;Rê|2;Isis|1;Osiris|2;Horus|2;Loki|1;Thor|1;Odin|1;Freya|2;Fenrir|3;Jörmungand|4;Yggdrasil|3;Amaterasu|3;Susanoo|4;Izanagi|4;Kitsune|2;Quetzalcoatl|3;Maui|3;Gilgamesh|2;Enkidu|4'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'villes', name: 'Villes françaises', emoji: '🏙️', q: 'Cite des villes françaises', a: 'Paris|1;Marseille|1;Lyon|1;Toulouse|1;Nice|1;Nantes|1;Strasbourg|1;Montpellier|1;Bordeaux|1;Lille|1;Rennes|1;Reims|1;Le Havre|1;Saint-Étienne|1;Toulon|1;Grenoble|1;Dijon|1;Angers|1;Nîmes|1;Villeurbanne|2;Clermont-Ferrand|1;Aix-en-Provence|1;Brest|1;Limoges|1;Tours|1;Amiens|1;Perpignan|1;Metz|1;Besançon|1;Orléans|1;Rouen|1;Caen|1;Nancy|1;Mulhouse|1;Calais|2;Dunkerque|1;Arras|1;Lens|1;Valenciennes|2;Douai|2;Boulogne-sur-Mer|2;Colmar|1;Annecy|1;Chambéry|2;Bayonne|1;La Rochelle|1;Poitiers|1;Pau|1;Albi|2;Carcassonne|1;Saint-Malo|1;Vannes|1;Quimper|1;Épinal|2;Auxerre|2;Rodez|3;Montauban|2;Auch|3;Gap|2;Digne-les-Bains|3'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'arts', name: 'Arts & culture', emoji: '🎨', q: 'Cite des formes d’art ou des mouvements artistiques', a: 'Peinture|1;Sculpture|1;Photographie|1;Architecture|1;Dessin|1;Gravure|2;Céramique|2;Mosaïque|2;Fresque|2;Street art|1;Art numérique|2;Performance|2;Installation|2;Collage|1;Origami|2;Calligraphie|2;Aquarelle|1;Pastel|1;Gouache|1;Art abstrait|1;Impressionnisme|1;Cubisme|2;Surréalisme|1;Baroque|2;Renaissance|1;Art nouveau|2;Art déco|2;Dadaïsme|3;Fauvisme|3;Expressionnisme|2;Minimalisme|2;Pop art|1;Land art|3;Réalisme|1;Romantisme|1;Symbolisme|2;Pointillisme|2;Futurisme|3;Constructivisme|4;Bauhaus|3;Rococo|3;Néo-classicisme|3;Arts premiers|2;Art brut|3;Design|1;Mode|1;Danse contemporaine|2;Opéra|1;Cirque|1;Théâtre|1'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'objets', name: 'Objets du quotidien', emoji: '🧰', q: 'Cite des objets que l’on trouve dans une maison', a: 'Fourchette|1;Cuillère|1;Couteau|1;Assiette|1;Verre|1;Tasse|1;Bol|1;Casserole|1;Poêle|1;Passoire|1;Spatule|1;Éponge|1;Balai|1;Aspirateur|1;Serpillière|1;Seau|1;Poubelle|1;Lampe|1;Réveil|1;Télécommande|1;Chargeur|1;Multiprise|1;Ciseaux|1;Ruban adhésif|1;Agrafeuse|1;Marteau|1;Tournevis|1;Pince|1;Mètre ruban|1;Niveau à bulle|2;Perceuse|1;Vis|1;Clou|1;Ampoule|1;Parapluie|1;Cintre|1;Valise|1;Sac à dos|1;Brosse à dents|1;Peigne|1;Sèche-cheveux|1;Rasoir|1;Thermomètre|1;Bouillotte|1;Ventilateur|1;Radiateur|1;Oreiller|1;Couette|1;Rideau|1;Paillasson|1'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'securite', name: 'Sécurité & secours', emoji: '🚒', q: 'Cite des équipements ou acteurs de secours', a: 'Pompier|1;Ambulancier|1;SAMU|1;SMUR|2;Croix-Rouge|1;Protection civile|2;Gendarmerie|1;Police nationale|1;Police municipale|1;Sapeur-pompier|1;Défibrillateur|2;Extincteur|1;Détecteur de fumée|1;Brancard|1;Trousse de secours|1;Garrot|2;Pansement compressif|2;Couverture de survie|1;Casque|1;Gilet haute visibilité|1;Lance à incendie|2;Échelle|1;Véhicule de secours|1;Bateau de sauvetage|2;Hélicoptère de secours|2;Numéro 112|1;Numéro 15|1;Numéro 17|1;Numéro 18|1;Numéro 114|3;Plan ORSEC|3;Poste de commandement|2;Balise de détresse|2;Bouée de sauvetage|1;Extincteur CO2|2;Masque respiratoire|2;Détecteur de monoxyde de carbone|2;Kit anti-déversement|4;Lampe torche|1;Radio de secours|2'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'espace', name: 'Espace & conquête spatiale', emoji: '🚀', q: 'Cite des éléments liés à l’exploration spatiale', a: 'Fusée|1;Satellite|1;Astronaute|1;Station spatiale internationale|1;Navette spatiale|1;Capsule spatiale|2;Combinaison spatiale|1;Lanceur|2;Rover|2;Sonde spatiale|1;Télescope spatial|1;Module lunaire|2;Apollo 11|1;Soyouz|2;Ariane 5|2;Ariane 6|2;Falcon 9|1;Starship|2;Hubble|1;James-Webb|2;Curiosity|1;Perseverance|1;Voyager 1|1;Voyager 2|1;New Horizons|2;Spoutnik|1;Youri Gagarine|1;Valentina Terechkova|2;Neil Armstrong|1;Buzz Aldrin|1;Thomas Pesquet|1;Centre spatial de Kourou|2;Cape Canaveral|2;Rentrée atmosphérique|2;Amarrage orbital|3;Sortie extravéhiculaire|3;Gravité zéro|1;Panneau solaire|1;Bouclier thermique|2;Moteur ionique|4'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'technologie', name: 'Technologie & inventions', emoji: '🧠', q: 'Cite des inventions ou innovations technologiques', a: 'Imprimerie|1;Téléphone|1;Ampoule électrique|1;Radio|1;Télévision|1;Ordinateur|1;Internet|1;Appareil photo|1;Microprocesseur|2;Transistor|2;GPS|1;Écran tactile|1;Wi-Fi|1;Bluetooth|1;Intelligence artificielle|1;Robot industriel|2;Imprimante 3D|1;Réalité virtuelle|1;Réalité augmentée|2;Blockchain|2;Voiture électrique|1;Batterie lithium-ion|2;Fibre optique|2;Laser|1;Scanner médical|1;IRM|1;Radar|1;Sonar|2;Drone|1;Smartphone|1;Montre connectée|1;Clé USB|1;Disque SSD|1;Cloud computing|2;Cryptographie|2;Reconnaissance faciale|2;Assistant vocal|1;Moteur à réaction|2;Machine à vapeur|1;Métier à tisser|2;Boussole|1;Horloge mécanique|2;Paratonnerre|1'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'architecture', name: 'Architecture & monuments', emoji: '🏗️', q: 'Cite des monuments ou styles architecturaux', a: 'Tour Eiffel|1;Pyramides de Gizeh|1;Colisée|1;Taj Mahal|1;Big Ben|1;Arc de Triomphe|1;Notre-Dame de Paris|1;Château de Versailles|1;Sagrada Família|1;Acropole d’Athènes|1;Machu Picchu|1;Muraille de Chine|1;Statue de la Liberté|1;Burj Khalifa|1;Opéra de Sydney|1;Mont-Saint-Michel|1;Pont du Gard|1;Stonehenge|1;Petra|2;Angkor Vat|1;Basilique|1;Cathédrale|1;Abbaye|1;Château fort|1;Gratte-ciel|1;Art roman|2;Art gothique|1;Renaissance|1;Baroque|2;Art nouveau|2;Art déco|2;Bauhaus|3;Brutalisme|3;Néoclassicisme|2;Architecture contemporaine|1;Maison à colombages|2;Hôtel particulier|2;Pagode|1;Mosquée|1;Temple|1;Amphithéâtre|2;Aqueduc|2;Phare|1;Viaduc|1'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) },
+            { id: 'langues', name: 'Langues & expressions', emoji: '🗣️', q: 'Cite des langues parlées dans le monde', a: 'Français|1;Anglais|1;Espagnol|1;Allemand|1;Italien|1;Portugais|1;Néerlandais|2;Arabe|1;Chinois mandarin|1;Japonais|1;Coréen|1;Hindi|1;Ourdou|2;Bengali|2;Russe|1;Ukrainien|2;Polonais|2;Suédois|2;Norvégien|2;Danois|2;Finnois|2;Grec|1;Turc|1;Hébreu|2;Persan|2;Swahili|2;Amharique|3;Wolof|3;Bambara|3;Tamoul|2;Vietnamien|1;Thaï|1;Indonésien|1;Malais|2;Tagalog|2;Quechua|3;Guarani|3;Basque|2;Breton|2;Occitan|2;Catalan|2;Gallois|3;Irlandais|2;Espéranto|2;Latin|1;Langue des signes française|2'.split(';').map(v => { const [n, p] = v.split('|'); return [n, +p, []] }) }
         ];
         furtherTopics.forEach(t => { if (!topics.some(x => x.id === t.id)) topics.push(t); });
 
@@ -1036,13 +1446,13 @@
         let mode = 'count', play = 'solo', themeMode = 'random', count = 8, targetCount = 8, rounds = 5, playerCount = 2, players = [], round = 1, answerBank = [], targetSelection = [], found = [], activeTopic = null, answerer = 0, judge = 1, locked = false, used = [], targetReady = false, auctionBids = [], auctionTurn = 0, auctionPassed = [], auctionPhase = false, contractQueue = [], contractIndex = 0, contractTarget = 0, contractPlayer = 0, roundSummaryPending = false;
         const sound = { buttons: true, win: true, anim: true, confirm: true };
         function beep(freq = 540, dur = .055) { if (!sound.buttons) return; try { const c = new (window.AudioContext || window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain(); o.frequency.value = freq; o.type = 'sine'; g.gain.value = .035; o.connect(g); g.connect(c.destination); o.start(); g.gain.exponentialRampToValueAtTime(.001, c.currentTime + dur); o.stop(c.currentTime + dur) } catch (e) { } }
-        function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); $(id).classList.add('active'); window.scrollTo(0, 0) }
+        function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); $(id).classList.add('active'); document.body.classList.toggle('playing', id === 'game'); window.scrollTo(0, 0) }
         const SAVE_KEY = 'reponseMoiSaveV5', STATS_KEY = 'reponseMoiStatsV1'; try { if (!localStorage.getItem(SAVE_KEY) && localStorage.getItem('reponseMoiSaveV3')) localStorage.setItem(SAVE_KEY, localStorage.getItem('reponseMoiSaveV3')) } catch (e) { }
         let stats = (() => { try { return JSON.parse(localStorage.getItem(STATS_KEY)) || { games: 0, rounds: 0, answers: 0, points: 0, wins: 0, topics: {} } } catch (e) { return { games: 0, rounds: 0, answers: 0, points: 0, wins: 0, topics: {} } } })();
         function saveStats() { try { localStorage.setItem(STATS_KEY, JSON.stringify(stats)) } catch (e) { } }
         function refreshHome() { const saved = !!localStorage.getItem(SAVE_KEY); $('savedCard').classList.toggle('hidden', !saved); if (saved) { try { const d = JSON.parse(localStorage.getItem(SAVE_KEY)); $('savedSummary').textContent = `${d.players?.map(p => p.name).join(', ') || 'Partie'} · Manche ${d.round || 1}/${d.rounds || 5} · ${d.activeTopic?.name || 'Thème en cours'}` } catch (e) { } } $('statsSummary').textContent = `${stats.games} partie(s) terminée(s) · ${stats.points} points marqués · ${stats.answers} réponses validées.` }
         function saveGame() { try { const data = { mode, play, themeMode, count, targetCount, rounds, players, round, answerBank, targetSelection, found, activeTopic, answerer, judge, locked, selectedThemeIds: selectedTopics().map(t => t.id), targetReady, auctionBids, auctionTurn, auctionPassed, auctionPhase, contractQueue, contractIndex, contractTarget, contractPlayer, roundSummaryPending, used }; localStorage.setItem(SAVE_KEY, JSON.stringify(data)); refreshHome() } catch (e) { } }
-        function loadGame() { try { const d = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (!d || !d.players || !d.activeTopic) return false; renderThemes(); $('themeGrid').querySelectorAll('input').forEach(x => x.checked = (d.selectedThemeIds || []).includes(x.value)); document.querySelectorAll('.theme').forEach(x => x.classList.toggle('active', x.querySelector('input').checked)); mode = d.mode || 'count'; play = d.play || 'solo'; themeMode = d.themeMode || 'same'; count = d.count || 8; targetCount = d.targetCount || 8; rounds = d.rounds || 5; players = d.players || []; round = d.round || 1; answerBank = d.answerBank || []; targetSelection = d.targetSelection || []; found = d.found || []; activeTopic = d.activeTopic; answerer = d.answerer || 0; judge = d.judge || 0; locked = !!d.locked; targetReady = d.targetReady !== false; auctionBids = d.auctionBids || []; auctionTurn = d.auctionTurn || 0; auctionPassed = d.auctionPassed || []; auctionPhase = !!d.auctionPhase; contractQueue = d.contractQueue || []; contractIndex = d.contractIndex || 0; contractTarget = d.contractTarget || 0; contractPlayer = d.contractPlayer || 0; roundSummaryPending = !!d.roundSummaryPending; used = d.used || []; renderGame(); show('game'); return true } catch (e) { return false } }
+        function loadGame() { try { const d = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (!d || !d.players || !d.activeTopic) return false; renderThemes(); $('themeGrid').querySelectorAll('input').forEach(x => x.checked = (d.selectedThemeIds || []).includes(x.value)); document.querySelectorAll('.theme').forEach(x => x.classList.toggle('active', x.querySelector('input').checked)); mode = d.mode || 'count'; play = d.play || 'solo'; themeMode = d.themeMode || 'random'; document.querySelectorAll('[data-theme-mode]').forEach(x => x.classList.toggle('selected', x.dataset.themeMode === themeMode)); count = d.count || 8; targetCount = d.targetCount || 8; rounds = d.rounds || 5; players = d.players || []; round = d.round || 1; answerBank = d.answerBank || []; targetSelection = d.targetSelection || []; found = d.found || []; activeTopic = d.activeTopic; answerer = d.answerer || 0; judge = d.judge || 0; locked = !!d.locked; targetReady = d.targetReady !== false; auctionBids = d.auctionBids || []; auctionTurn = d.auctionTurn || 0; auctionPassed = d.auctionPassed || []; auctionPhase = !!d.auctionPhase; contractQueue = d.contractQueue || []; contractIndex = d.contractIndex || 0; contractTarget = d.contractTarget || 0; contractPlayer = d.contractPlayer || 0; roundSummaryPending = !!d.roundSummaryPending; used = d.used || []; renderGame(); show('game'); return true } catch (e) { return false } }
         function clearSave() { localStorage.removeItem(SAVE_KEY); refreshHome() }
         function renderStats() { const tiles = [['🎮', stats.games, 'Parties'], ['🏁', stats.rounds, 'Manches'], ['💡', stats.answers, 'Réponses'], ['⭐', stats.points, 'Points'], ['🏆', stats.wins, 'Victoires']]; $('statsGrid').innerHTML = tiles.map(x => `<div class="score"><small>${x[0]} ${x[2]}</small><b>${x[1]}</b></div>`).join(''); const rows = Object.entries(stats.topics || {}).sort((a, b) => b[1] - a[1]); $('topicStats').innerHTML = rows.length ? rows.map(([n, v]) => `<div class="rank"><span>${esc(n)}</span><b>${v} réponse(s)</b></div>`).join('') : '<p class="muted">Pas encore de données. À toi de jouer !</p>' }
         function esc(s) { return String(s).replace(/[&<>\"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;' }[c])) }
@@ -1052,13 +1462,19 @@
         function step(id, delta, min, max, fn) { $(id).textContent = Math.max(min, Math.min(max, Number($(id).textContent) + delta)); fn?.() }
         function setupPlayers() { $('playerInputs').innerHTML = Array.from({ length: playerCount }, (_, i) => `<div class="player-row"><input class="playerName" maxlength="18" value="${i === 0 ? 'Joueur 1' : `Joueur ${i + 1}`}" aria-label="Nom joueur ${i + 1}"><input disabled value="${['🦊', '🐼', '🐸', '🐯', '🐙', '🐲'][i]}" style="text-align:center"></div>`).join('') }
         function updatePlay() { $('playersPanel').classList.toggle('hidden', play !== 'multi'); $('countField').classList.toggle('hidden', mode !== 'count' || play === 'multi'); if (mode === 'count') $('setupDesc').textContent = play === 'multi' ? 'Choisissez un thème. Enchérissez sur le nombre de réponses que vous pensez trouver : le meilleur enchérisseur tentera son contrat en premier.' : 'En solo, choisis le nombre de réponses que tu veux tenter.'; if (play === 'multi') setupPlayers() }
-        function begin() { clearSave(); const ts = selectedTopics(); if (ts.length < 2) { alert('Sélectionne au moins deux thèmes pour pouvoir changer de thème à chaque manche.'); return } if (play === 'solo') players = [{ name: 'Toi', score: 0 }]; else players = [...document.querySelectorAll('.playerName')].map((x, i) => ({ name: x.value.trim() || `Joueur ${i + 1}`, score: 0 })); round = 1; used = []; activeTopic = null; themeMode = 'random'; roundSummaryPending = false; answerer = 0; judge = players.length > 1 ? 1 : 0; nextChallenge(); show('game') }
+        function begin() { clearSave(); const ts = selectedTopics(); if (!ts.length) { alert('Sélectionne au moins un domaine pour commencer.'); return } if (themeMode === 'random' && ts.length < 2) { alert('Sélectionne au moins deux domaines pour le mode « Au hasard ».'); return } if (play === 'solo') players = [{ name: 'Toi', score: 0 }]; else players = [...document.querySelectorAll('.playerName')].map((x, i) => ({ name: x.value.trim() || `Joueur ${i + 1}`, score: 0 })); round = 1; used = []; activeTopic = null; roundSummaryPending = false; answerer = 0; judge = players.length > 1 ? 1 : 0; nextChallenge(); show('game') }
         function nextChallenge(forceNewTopic = true) {
             const ts = selectedTopics();
-            if (forceNewTopic || !activeTopic) {
-                let choices = ts.filter(t => t.id !== activeTopic?.id);
+            if (!activeTopic) {
+                activeTopic = ts[Math.floor(Math.random() * ts.length)];
+            } else if (forceNewTopic && themeMode === 'random') {
+                let choices = ts.filter(t => t.id !== activeTopic.id);
                 if (!choices.length) choices = ts;
                 activeTopic = choices[Math.floor(Math.random() * choices.length)];
+            } else if (forceNewTopic && themeMode === 'same') {
+                // Le thème initial reste actif pour toutes les manches.
+            } else if (!ts.some(t => t.id === activeTopic.id)) {
+                activeTopic = ts[Math.floor(Math.random() * ts.length)];
             }
             answerBank = [...activeTopic.a].sort(() => Math.random() - .5);
             targetSelection = [];
@@ -1089,12 +1505,12 @@
             $('roundIntroKicker').textContent = `Manche ${round} sur ${rounds}`;
             $('roundIntroEmoji').textContent = activeTopic.emoji;
             $('roundIntroTitle').textContent = `Manche ${round}`;
-            $('roundIntroTopic').textContent = `Nouveau thème : ${activeTopic.name}`;
-            const sorted = [...players].sort((a,b) => b.score-a.score);
-            $('roundIntroRanks').innerHTML = sorted.map((p,i) => `<div class="rank"><span>${['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'][i]} ${esc(p.name)}</span><b>${p.score} pts</b></div>`).join('');
+            $('roundIntroTopic').textContent = themeMode === 'same' && round > 1 ? `Thème conservé : ${activeTopic.name}` : `Nouveau thème : ${activeTopic.name}`;
+            const sorted = [...players].sort((a, b) => b.score - a.score);
+            $('roundIntroRanks').innerHTML = sorted.map((p, i) => `<div class="rank"><span>${['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣'][i]} ${esc(p.name)}</span><b>${p.score} pts</b></div>`).join('');
             show('roundIntro');
         }
-        function renderInterRoundScores() { const panel = $('interRoundScores'); if (!panel) return; const visible = mode === 'targets' && players.length > 1 && locked && roundSummaryPending; panel.classList.toggle('hidden', !visible); if (visible) { const sorted = players.map(p => ({ ...p })).sort((a, b) => b.score - a.score); $('interRoundScoreList').innerHTML = sorted.map((p, i) => `<div class="rank"><span>${['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'][i]} ${esc(p.name)}</span><b>${p.score} pts</b></div>`).join(''); } }
+        function renderInterRoundScores() { const panel = $('interRoundScores'); if (!panel) return; const visible = mode === 'targets' && players.length > 1 && locked && roundSummaryPending; panel.classList.toggle('hidden', !visible); if (visible) { const sorted = players.map(p => ({ ...p })).sort((a, b) => b.score - a.score); $('interRoundScoreList').innerHTML = sorted.map((p, i) => `<div class="rank"><span>${['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣'][i]} ${esc(p.name)}</span><b>${p.score} pts</b></div>`).join(''); } }
         function renderGame() {
             $('roundTag').textContent = mode === 'targets' && players.length > 1 ? `Round ${round} / ${rounds} · Joueur ${answerer + 1} / ${players.length}` : `Manche ${round} / ${rounds}`; $('modeTag').textContent = mode === 'count' ? "À toi d'en trouver X !" : 'Défi des réponses'; $('topicEmoji').textContent = activeTopic.emoji; $('questionTitle').textContent = activeTopic.q; $('questionSub').textContent = `${activeTopic.a.length} réponses référencées dans cette catégorie`; $('scoreboard').innerHTML = players.map((p, i) => `<div class="score"><small>${esc(p.name)}${i === answerer ? ' · répond' : ''}${players.length > 1 && i === judge ? ' · arbitre' : ''}</small><b>${p.score} pts</b></div>`).join(''); $('progressFill').style.width = `${(round - 1) / rounds * 100}%`;
             const isMulti = players.length > 1; $('roleBar').innerHTML = isMulti ? `🎤 <b>${esc(players[judge]?.name || '')}</b> arbitre et valide les réponses.<br>⚡ <b>${esc(players[answerer]?.name || '')}</b> doit répondre.` : '🧠 À toi de jouer ! Les réponses correctes de la banque enrichie sont acceptées.';
@@ -1135,15 +1551,15 @@
         function launchConfetti() {
             const layer = $('confettiLayer'); if (!layer || !sound.anim) return;
             layer.innerHTML = '';
-            const colors = ['#ffd166','#ff5d9e','#58e6d2','#9b8cff','#ffffff','#ff9f43'];
-            for (let i=0;i<90;i++) {
+            const colors = ['#ffd166', '#ff5d9e', '#58e6d2', '#9b8cff', '#ffffff', '#ff9f43'];
+            for (let i = 0; i < 90; i++) {
                 const piece = document.createElement('i'); piece.className = 'confetti-piece';
-                piece.style.left = `${Math.random()*100}%`;
+                piece.style.left = `${Math.random() * 100}%`;
                 piece.style.background = colors[i % colors.length];
-                piece.style.setProperty('--delay', `${Math.random()*1.5}s`);
-                piece.style.setProperty('--fall', `${2.7+Math.random()*2.2}s`);
-                piece.style.setProperty('--drift', `${Math.round(Math.random()*180-90)}px`);
-                piece.style.setProperty('--rot', `${Math.round(Math.random()*180)}deg`);
+                piece.style.setProperty('--delay', `${Math.random() * 1.5}s`);
+                piece.style.setProperty('--fall', `${2.7 + Math.random() * 2.2}s`);
+                piece.style.setProperty('--drift', `${Math.round(Math.random() * 180 - 90)}px`);
+                piece.style.setProperty('--rot', `${Math.round(Math.random() * 180)}deg`);
                 layer.appendChild(piece);
             }
             setTimeout(() => { if (layer) layer.innerHTML = ''; }, 6500);
@@ -1154,15 +1570,16 @@
             saveStats(); clearSave();
             $('winnerTitle').textContent = sorted.length === 1 ? 'Défi terminé !' : (sorted[0].score === sorted[1]?.score ? 'Égalité au sommet !' : sorted[0].name + ' remporte la partie !');
             $('winnerSub').textContent = `${rounds} manches jouées · ${sorted[0].score} points`;
-            const topThree = sorted.slice(0,3);
-            $('finalPodium').innerHTML = topThree.map((p,i) => `<div class="podium-place ${['first','second','third'][i]}"><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score} pts</div><div class="podium-block">${['1','2','3'][i]}</div></div>`).join('');
+            const topThree = sorted.slice(0, 3);
+            $('finalPodium').innerHTML = topThree.map((p, i) => `<div class="podium-place ${['first', 'second', 'third'][i]}"><div class="podium-name">${esc(p.name)}</div><div class="podium-score">${p.score} pts</div><div class="podium-block">${['1', '2', '3'][i]}</div></div>`).join('');
             $('finalRanks').innerHTML = sorted.map((p, i) => `<div class="rank"><span>${['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣'][i]} ${esc(p.name)}</span><b>${p.score} pts</b></div>`).join('');
-            show('result'); launchConfetti(); if (sound.win) beep(980,.22);
+            show('result'); launchConfetti(); if (sound.win) beep(980, .22);
         }
         refreshHome(); const bind = (id, event, fn) => { const el = $(id); if (el) el[event] = fn }; bind('resumeBtn', 'onclick', () => loadGame()); bind('newGameBtn', 'onclick', () => { let next = 'count'; try { next = JSON.parse(localStorage.getItem(SAVE_KEY) || '{}').mode || 'count' } catch (e) { } if (confirm('Commencer une nouvelle partie ? La partie sauvegardée sera remplacée.')) { clearSave(); chooseMode(next) } }); bind('statsBtn', 'onclick', () => { renderStats(); show('stats') }); bind('resetStatsBtn', 'onclick', () => { if (confirm('Effacer toutes les statistiques ?')) { stats = { games: 0, rounds: 0, answers: 0, points: 0, wins: 0, topics: {} }; saveStats(); renderStats() } }); bind('targetStartBtn', 'onclick', startTargetChallenge); bind('bidMinus', 'onclick', () => step('bidValue', -1, 1, Math.max(1, answerBank.length))); bind('bidPlus', 'onclick', () => step('bidValue', 1, 1, Math.max(1, answerBank.length))); bind('bidSubmit', 'onclick', () => submitBid(false)); bind('bidPass', 'onclick', () => submitBid(true)); bind('failedContractBtn', 'onclick', failedContract); bind('goCount', 'onclick', () => { beep(); chooseMode('count') }); bind('goTargets', 'onclick', () => { beep(); chooseMode('targets') }); bind('howBtn', 'onclick', () => show('how')); bind('settingsBtn', 'onclick', () => show('settings')); bind('soundQuick', 'onclick', () => { sound.buttons = !sound.buttons; $('soundQuick').textContent = sound.buttons ? '🔊' : '🔇'; beep() }); document.querySelectorAll('[data-home]').forEach(b => b.onclick = () => show('home')); bind('allThemes', 'onclick', () => { $('themeGrid').querySelectorAll('input').forEach(x => x.checked = true); document.querySelectorAll('.theme').forEach(x => x.classList.add('active')) }); bind('noThemes', 'onclick', () => { $('themeGrid').querySelectorAll('input').forEach(x => x.checked = false) });
         $('themeGrid').onchange = e => e.target.closest('.theme')?.classList.toggle('active', e.target.checked);
         bind('countMinus', 'onclick', () => step('countVal', -1, 1, 25)); bind('countPlus', 'onclick', () => step('countVal', 1, 1, 25)); bind('targetMinus', 'onclick', () => step('targetVal', -1, 5, 15)); bind('targetPlus', 'onclick', () => step('targetVal', 1, 5, 15)); bind('roundMinus', 'onclick', () => step('roundVal', -1, 3, 10)); bind('roundPlus', 'onclick', () => step('roundVal', 1, 3, 10)); bind('playersMinus', 'onclick', () => { playerCount = Math.max(2, playerCount - 1); $('playersVal').textContent = playerCount; setupPlayers() }); bind('playersPlus', 'onclick', () => { playerCount = Math.min(6, playerCount + 1); $('playersVal').textContent = playerCount; setupPlayers() });
         document.querySelectorAll('[data-play]').forEach(b => b.onclick = () => { play = b.dataset.play; document.querySelectorAll('[data-play]').forEach(x => x.classList.toggle('selected', x === b)); updatePlay() });
+        document.querySelectorAll('[data-theme-mode]').forEach(b => b.onclick = () => { themeMode = b.dataset.themeMode; document.querySelectorAll('[data-theme-mode]').forEach(x => x.classList.toggle('selected', x === b)); });
         bind('startBtn', 'onclick', () => { count = Number($('countVal').textContent); targetCount = Number($('targetVal').textContent); rounds = Number($('roundVal').textContent); begin() }); bind('submitAnswer', 'onclick', submit); $('answerInput').addEventListener('keydown', e => { if (e.key === 'Enter') submit() }); bind('endTurn', 'onclick', () => { if (mode === 'count' && players.length > 1 && contractQueue.length) failedContract(); else endRound() }); bind('nextRound', 'onclick', advance); bind('roundIntroStart', 'onclick', () => show('game')); bind('quitGame', 'onclick', () => { if (sound.confirm && !confirm('Quitter la partie ? Ta progression sera sauvegardée sur cet appareil.')) return; saveGame(); show('home') }); bind('replayBtn', 'onclick', () => { chooseMode(mode) });
         bind('soundToggle', 'onchange', e => { sound.buttons = e.target.checked; $('soundQuick').textContent = sound.buttons ? '🔊' : '🔇' }); bind('winSound', 'onchange', e => sound.win = e.target.checked); bind('animToggle', 'onchange', e => sound.anim = e.target.checked); bind('confirmToggle', 'onchange', e => sound.confirm = e.target.checked);
     </script>
