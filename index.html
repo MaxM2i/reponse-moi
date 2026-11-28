@@ -597,6 +597,26 @@
         .hidden {
             display: none !important
         }
+        /* Modale de sortie : reste au-dessus de l'écran de jeu, même en mode plein écran. */
+        .quit-modal { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:20px; background:#09091bdc; backdrop-filter:blur(8px); }
+        .quit-card { width:min(100%,390px); padding:22px; border-radius:22px; background:linear-gradient(150deg,#302b5c,#1c1b3b); border:1px solid #ffffff30; box-shadow:0 22px 70px #0009; }
+        .quit-card h2 { margin:0 0 8px; font-size:22px; }
+        .quit-card p { color:var(--muted); line-height:1.45; font-size:13px; margin:0 0 18px; }
+        .quit-card .btn { margin-top:9px; min-height:46px; }
+        .game-head { display:flex; align-items:center; justify-content:space-between; gap:7px; flex-wrap:wrap; }
+        #timerTag { font-variant-numeric:tabular-nums; font-weight:950; color:#15152d; background:var(--yellow); border:1px solid #fff5; border-radius:999px; padding:7px 12px; min-width:82px; text-align:center; box-shadow:0 3px 12px #ffd66b35; }
+        #timerTag.urgent { color:white; background:#d94362; animation:timerPulse .75s infinite alternate; }
+        @keyframes timerPulse { to { transform:scale(1.06); filter:brightness(1.2); } }
+        .rolebar { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; padding:0; margin:4px 0; border:0; background:transparent; }
+        .role-card { display:flex; align-items:center; gap:9px; min-width:0; padding:10px 12px; border-radius:14px; font-size:12px; line-height:1.3; font-weight:750; border:1px solid #ffffff25; background:linear-gradient(135deg,#292750,#20203f); box-shadow:0 4px 12px #0002; }
+        .role-card .role-icon { flex:0 0 30px; width:30px; height:30px; display:grid; place-items:center; border-radius:10px; font-size:16px; }
+        .role-card.judge { border-color:#a58bff88; background:linear-gradient(135deg,#332b60,#242044); }
+        .role-card.judge .role-icon { background:#a58bff25; }
+        .role-card.answerer { border-color:#65e4df99; background:linear-gradient(135deg,#164d58,#202b4b); }
+        .role-card.answerer .role-icon { background:#65e4df25; }
+        .role-card.solo { grid-column:1/-1; border-color:#ffd66b77; }
+        .role-card strong { display:block; color:white; font-size:13px; margin-bottom:2px; }
+        @media(max-width:440px) { .rolebar { grid-template-columns:1fr; gap:6px; } .role-card { padding:8px 10px; } }
 
         .result {
             text-align: center;
@@ -851,7 +871,7 @@
         <section class="screen" id="game">
             <button class="back" id="quitGame">✕ Quitter la partie</button>
             <div class="game-head"><span class="tag" id="roundTag">Manche 1 / 5</span><span class="tag" id="modeTag">À
-                    toi d'en trouver X !</span></div>
+                    toi d'en trouver X !</span><span class="tag" id="timerTag" aria-live="off">⏱️ 90 s</span></div>
             <div class="scoreboard" id="scoreboard"></div>
             <div class="panel hidden" id="interRoundScores"><h2>📊 Rappel des scores</h2><p>Voici le classement après cette manche.</p><div id="interRoundScoreList"></div></div>
             <div class="progress"><i id="progressFill"></i></div>
@@ -1216,7 +1236,14 @@
         function renderInterRoundScores() { const panel = $('interRoundScores'); if (!panel) return; const visible = mode === 'targets' && players.length > 1 && locked && roundSummaryPending; panel.classList.toggle('hidden', !visible); if (visible) { const sorted = players.map(p => ({ ...p })).sort((a, b) => b.score - a.score); $('interRoundScoreList').innerHTML = sorted.map((p, i) => `<div class="rank"><span>${['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'][i]} ${esc(p.name)}</span><b>${p.score} pts</b></div>`).join(''); } }
         function renderGame() {
             $('roundTag').textContent = mode === 'targets' && players.length > 1 ? `Round ${round} / ${rounds} · Joueur ${answerer + 1} / ${players.length}` : `Manche ${round} / ${rounds}`; $('modeTag').textContent = mode === 'count' ? 'Combien peux-tu en trouver ?' : (targetVariant === 'timer' ? 'Défi chronométré' : 'Réponses secrètes'); updateTimerDisplay(); $('topicEmoji').textContent = activeTopic.emoji; $('questionTitle').textContent = activeTopic.q; $('questionSub').textContent = `${activeTopic.a.length} réponses dans ce thème précis`; $('scoreboard').innerHTML = players.map((p, i) => `<div class="score"><small>${esc(p.name)}${i === answerer ? ' · répond' : ''}${players.length > 1 && i === judge ? ' · arbitre' : ''}</small><b>${p.score} pts</b></div>`).join(''); $('progressFill').style.width = `${(round - 1) / rounds * 100}%`;
-            const isMulti = players.length > 1; $('roleBar').innerHTML = isMulti ? (mode === 'targets' && targetVariant === 'timer' ? `⚡ <b>${esc(players[answerer]?.name || '')}</b> joue cette manche.` : `🎤 <b>${esc(players[judge]?.name || '')}</b> arbitre et valide les réponses.<br>⚡ <b>${esc(players[answerer]?.name || '')}</b> doit répondre.`) : '🧠 À toi de jouer ! Les réponses correctes de la banque enrichie sont acceptées.';
+            const isMulti = players.length > 1;
+            if (isMulti && !(mode === 'targets' && targetVariant === 'timer')) {
+                $('roleBar').innerHTML = `<div class="role-card judge"><span class="role-icon">🎤</span><span><strong>${esc(players[judge]?.name || 'Joueur')}</strong>Arbitre · valide les réponses</span></div><div class="role-card answerer"><span class="role-icon">⚡</span><span><strong>${esc(players[answerer]?.name || 'Joueur')}</strong>À lui de répondre</span></div>`;
+            } else if (isMulti) {
+                $('roleBar').innerHTML = `<div class="role-card answerer solo"><span class="role-icon">⚡</span><span><strong>${esc(players[answerer]?.name || 'Joueur')}</strong>Joue cette manche · trouve un maximum de réponses</span></div>`;
+            } else {
+                $('roleBar').innerHTML = `<div class="role-card solo"><span class="role-icon">🧠</span><span><strong>À toi de jouer !</strong>Les réponses correctes de la banque enrichie sont acceptées.</span></div>`;
+            }
             const intro = mode === 'targets' && targetVariant === 'secret' && isMulti && !targetReady; $('targetIntro').classList.toggle('hidden', !intro); $('targetIntroText').textContent = `Thème : ${activeTopic.name}. ${esc(players[judge]?.name || 'L’arbitre')} garde la liste secrète. ${esc(players[answerer]?.name || 'Le joueur')} doit retrouver ${targetSelection.length} réponses. Appuyez sur Commencer lorsque tout le monde est prêt.`;
             $('auctionPanel').classList.toggle('hidden', !auctionPhase); $('targetNotice').classList.toggle('hidden', auctionPhase || intro); const activeGoal = mode === 'count' && isMulti && contractQueue.length ? contractTarget : count; $('targetNotice').textContent = mode === 'count' ? (isMulti && contractQueue.length ? `Contrat de ${players[answerer]?.name || 'joueur'} : ${activeGoal} réponses. Réponses trouvées : ${found.length} / ${activeGoal}.` : `Réponses trouvées : ${found.length}. Objectif : faire le meilleur score avant la fin du temps.`) : (targetVariant === 'secret' ? (isMulti ? `L’arbitre valide les réponses secrètes.` : `Retrouve les ${targetSelection.length} réponses secrètes choisies par le jeu.`) : `Trouve un maximum de réponses avant la fin du chronomètre.`); renderInterRoundScores();
             if (auctionPhase) { const current = players[auctionTurn]; const topBid = auctionBids.filter(b => !b.pass).reduce((m, b) => Math.max(m, b.value), 0); $('bidValue').textContent = String(Math.min(Math.max(1, answerBank.length), topBid + 1)); $('auctionText').textContent = `${current?.name || 'Joueur'} : annonce combien de réponses tu peux donner sur « ${activeTopic.name} ». Enchère actuelle : ${auctionBids.length ? Math.max(...auctionBids.filter(b => !b.pass).map(b => b.value)) : 0}.`; $('auctionHistory').innerHTML = auctionBids.map(b => `<div class="answer"><span>${esc(players[b.player].name)}</span><b>${b.pass ? 'Passe' : b.value + ' réponses'}</b></div>`).join(''); }
@@ -1285,7 +1312,7 @@
         document.querySelectorAll('[data-theme-mode]').forEach(b => b.onclick = () => { themeMode = b.dataset.themeMode; document.querySelectorAll('[data-theme-mode]').forEach(x => x.classList.toggle('selected', x === b)); });
         document.querySelectorAll('[data-target-variant]').forEach(b => b.onclick = () => { targetVariant = b.dataset.targetVariant; document.querySelectorAll('[data-target-variant]').forEach(x => x.classList.toggle('selected', x === b)); $('targetField').classList.toggle('hidden', targetVariant !== 'secret'); updateSetupLabels(); });
         bind('timeLimitSelect','onchange',e => { timeLimit = Number(e.target.value); timeRemaining = timeLimit; updateSetupLabels(); });
-        bind('startBtn', 'onclick', () => { count = Number($('countVal').textContent); targetCount = Number($('targetVal').textContent); rounds = Number($('roundVal').textContent); begin() }); bind('submitAnswer', 'onclick', submit); $('answerInput').addEventListener('keydown', e => { if (e.key === 'Enter') submit() }); bind('endTurn', 'onclick', () => { if (mode === 'count' && players.length > 1 && contractQueue.length) failedContract(); else endRound() }); bind('nextRound', 'onclick', advance); bind('roundIntroStart', 'onclick', () => { show('game'); if (!(mode === 'targets' && play === 'multi' && targetVariant === 'secret')) startTimer(true); }); bind('quitGame', 'onclick', () => { stopTimer(); $('quitModal').classList.remove('hidden'); }); bind('quitSaveBtn','onclick',() => { saveGame(); $('quitModal').classList.add('hidden'); show('home'); }); bind('quitDiscardBtn','onclick',() => { clearSave(); $('quitModal').classList.add('hidden'); show('home'); }); bind('quitCancelBtn','onclick',() => { $('quitModal').classList.add('hidden'); if (!locked && !auctionPhase && targetReady) startTimer(false); }); bind('replayBtn', 'onclick', () => { chooseMode(mode) });
+        bind('startBtn', 'onclick', () => { count = Number($('countVal').textContent); targetCount = Number($('targetVal').textContent); rounds = Number($('roundVal').textContent); begin() }); bind('submitAnswer', 'onclick', submit); $('answerInput').addEventListener('keydown', e => { if (e.key === 'Enter') submit() }); bind('endTurn', 'onclick', () => { if (mode === 'count' && players.length > 1 && contractQueue.length) failedContract(); else endRound() }); bind('nextRound', 'onclick', advance); bind('roundIntroStart', 'onclick', () => { show('game'); if (!(mode === 'targets' && play === 'multi' && targetVariant === 'secret')) startTimer(true); }); bind('quitGame', 'onclick', (e) => { e?.preventDefault?.(); stopTimer(); $('quitModal').classList.remove('hidden'); $('quitCancelBtn')?.focus(); }); bind('quitSaveBtn','onclick',() => { stopTimer(); saveGame(); $('quitModal').classList.add('hidden'); show('home'); refreshHome(); }); bind('quitDiscardBtn','onclick',() => { stopTimer(); clearSave(); $('quitModal').classList.add('hidden'); show('home'); refreshHome(); }); bind('quitCancelBtn','onclick',() => { $('quitModal').classList.add('hidden'); if (!locked && !auctionPhase && targetReady) startTimer(false); $('quitGame')?.focus(); }); bind('replayBtn', 'onclick', () => { chooseMode(mode) });
         bind('soundToggle', 'onchange', e => { sound.buttons = e.target.checked; $('soundQuick').textContent = sound.buttons ? '🔊' : '🔇' }); bind('winSound', 'onchange', e => sound.win = e.target.checked); bind('animToggle', 'onchange', e => sound.anim = e.target.checked); bind('confirmToggle', 'onchange', e => sound.confirm = e.target.checked);
     </script>
 </body>
